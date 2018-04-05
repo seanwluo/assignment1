@@ -5,21 +5,28 @@ import java.util.Map;
 
 import Store.ProfileData;
 
+/**
+ * @author Luo
+ * 
+ * This Profile class is associated with user and maintain user profile details
+ * 
+ */
 public class Profile {
-	private String _username;
+	private User _user;
 	private String _firstname;
 	private String _lastname;
-	private float _age;
+	private double _age;
 	private String _gender;
+	private String _status;
 	private String _picUrl;
 	
-	public Profile(String username) {
-		this._username = username;
+	public Profile(User user) {
+		this._user = user;
 	}
 	
-	public Profile(String username, String firstname, String lastname,
-			float age, String gender, String picUrl) {
-		this._username = username;
+	public Profile(User user, String firstname, String lastname,
+			double age, String gender, String status, String picUrl) {
+		this._user = user;
 		this._firstname = firstname;
 		this._lastname = lastname;
 		this._age = age;
@@ -43,12 +50,12 @@ public class Profile {
 		this._lastname = _lastname;
 	}
 
-	public float get_age() {
+	public double get_age() {
 		return _age;
 	}
 
-	public void set_age(float _age) {
-		this._age = _age;
+	public void set_age(double age) {
+		this._age = age;
 	}
 
 	public String get_gender() {
@@ -57,6 +64,14 @@ public class Profile {
 
 	public void set_gender(String gender) {
 		this._gender = gender;
+	}
+	
+	public String get_status() {
+		return _status;
+	}
+
+	public void set_status(String status) {
+		this._status = status;
 	}
 	
 	public String get_picUrl() {
@@ -68,23 +83,37 @@ public class Profile {
 	}
 	
 	public String toString() {
-		return "\nUsername: " + _username + "\nFirst name: "  +  _firstname +
-				"\nLast name: " + _lastname + "\nGender: " + _gender + "\nAge: " + _age;
+		return "\nUsername: " + _user.get_username() + "\nFirst name: "  +  _firstname +
+				"\nLast name: " + _lastname + "\nGender: " + _gender + "\nAge: " + _age + 
+				"\nStatus: " + _status + "\nProfile image: " + _picUrl;
 	}
 
 	public boolean create() {
-		//check unique username
-		ProfileData.write(_username, new String[]{_firstname, _lastname, _gender, Float.toString(_age)});
+//		check unique key
+		if(isUniqUsername()) {
+			ProfileData.write(_user.get_username(), new String[]{_firstname, _lastname, _gender, Double.toString(_age), _status, _picUrl});
+			return true;
+		} else {
+			System.out.println("\nUser profile already created");
+			return false;
+		}
+	}
+	
+	public boolean update() {
+		ProfileData.write(_user.get_username(), new String[]{_firstname, _lastname, _gender, Double.toString(_age)});
+		
 		return true;
 	}
 	
-	public boolean edit() {
-		return false;
+	public boolean delete() {
+		ProfileData.remove(_user.get_username());
+
+		return true;
 	}
 	
-	protected boolean isUniqUsername() {
+	private boolean isUniqUsername() {
 		Map<String, ArrayList<String>> pfData = ProfileData.get();
-		ArrayList<String> value = pfData.get(_username);
+		ArrayList<String> value = pfData.get(_user.get_username());
 		
 		return value == null;
 	}
