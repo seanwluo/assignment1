@@ -1,9 +1,7 @@
 package main;
 
-import Store.FriendshipData;
-import Store.ProfileData;
-import Store.UserData;
-import views.Menu;
+import db.DBUtil;
+import db.HSQLServer;
 
 /**
  * @author Raj
@@ -16,12 +14,23 @@ public class MiniNet {
 	 * */
 	public static void main(String[] args) {
 		// Load all hard coded data
-		UserData.load();
-		FriendshipData.load();
-		ProfileData.load();
-
-		Menu menu = new Menu();
-		menu.load();
+//		UserData.load();
+//		FriendshipData.load();
+//		ProfileData.load();
+//
+//		Menu menu = new Menu();
+//		menu.load();
+		
+		HSQLServer hsqlServer = new HSQLServer();
+		hsqlServer.start();
+		
+		DBUtil dbUtil = new DBUtil();
+		if(dbUtil.connect()) {
+			System.out.println("Connected successfully");
+		} else {
+			System.out.println("Not connected");
+		}
 	}
 
 }
+	
