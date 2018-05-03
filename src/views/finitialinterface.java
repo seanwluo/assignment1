@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class finitialinterface extends Application {
@@ -40,12 +41,18 @@ public class finitialinterface extends Application {
 		vbox.getChildren().add(btexit);
 		
 		
-		
-		
 		Scene scene=new Scene(vbox,700,500);
 		primaryStage.setTitle("Mininet");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		btlistall.setOnAction((ActionEvent e)->{
+			displayinformation dis=new displayinformation();
+			dis.start(primaryStage);
+		});
+		btexit.setOnAction((e)->{
+			System.exit(0);
+		});
 	}
 	public static void main(String[] args) {
 	       Application.launch(args);
