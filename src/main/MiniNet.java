@@ -3,6 +3,7 @@ package main;
 import Store.FriendshipData;
 import Store.ProfileData;
 import Store.UserData;
+import javafx.application.Application;
 import views.Menu;
 
 /**
@@ -14,6 +15,9 @@ public class MiniNet {
 	/*
 	 * Program main method to run
 	 * */
+	
+	//finitialinterface fin=new finitialinterface();
+	
 	public static void main(String[] args) {
 		// Load all hard coded data
 		UserData.load();
@@ -21,7 +25,8 @@ public class MiniNet {
 		ProfileData.load();
 
 		Menu menu = new Menu();
-		menu.load();
+		
+	
 	}
 
 }
