@@ -29,7 +29,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections; 
 
 
-public class displayinformation extends Application{
+public class listallnameinterface extends Application{
 	public void start(Stage primaryStage) {
 		VBox vbox=new VBox();
 		vbox.setSpacing(10);
@@ -54,13 +54,14 @@ public class displayinformation extends Application{
 		Button btback=new Button("BACK");
 		vbox.getChildren().add(btback);
 		btback.setOnAction((ActionEvent e)->{
-			finitialinterface fin=new finitialinterface();
+			maininterface fin=new maininterface();
 			fin.start(primaryStage);
 		});
 		Scene scene=new Scene(vbox,700,500);
 		primaryStage.setTitle("Mininet");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
 	
 	}
 	public static void main(String[] args) {

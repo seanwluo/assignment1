@@ -1,6 +1,7 @@
 package main;
 
 import Store.FriendshipData;
+import javafx.application.Application;
 import Store.ProfileData;
 import Store.UserData;
 import views.Menu;
@@ -22,6 +23,8 @@ public class MiniNet {
 
 		Menu menu = new Menu();
 		menu.load();
+		 
+		
 	}
 
 }
