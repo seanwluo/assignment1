@@ -1,5 +1,6 @@
 package Services;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import Store.UserData;
 import models.Adult;
 import models.Dependent;
 import models.User;
+import repository.UserRepository;
 
 /**
  * @author Raj
@@ -24,22 +26,46 @@ public class UserService {
 	 * @return List<User>
 	 * */
 	public static List<User> allUser() {
+		UserRepository userRepo = new UserRepository();
+		ResultSet result = userRepo.userList();
 		List<User> users = new ArrayList<User>();
-		Map<String, String> userData = UserData.get();
-
-		for (Map.Entry<String, String> entry : userData.entrySet()) {
-			User user;
-			
-			if( entry.getValue().equals("adult") ) {
-				user = new Adult(entry.getKey());
-			} else {
-				
-				user = new Dependent(entry.getKey());
-			}
-
-	        users.add(user);
+		
+		if (result == null) {
+			return null;
 		}
 		
+		try {
+			User user;
+			while (result.next()) {
+				String username = result.getString("username");
+				String type = result.getString("type");
+				
+				if(type.equals("adult")) {
+					user = new Adult(username);
+				} else {
+					user = new Dependent(username);
+				}
+			}
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+//		Map<String, String> userData = UserData.get();
+//
+//		for (Map.Entry<String, String> entry : userData.entrySet()) {
+//			User user;
+//			
+//			if( entry.getValue().equals("adult") ) {
+//				user = new Adult(entry.getKey());
+//			} else {
+//				
+//				user = new Dependent(entry.getKey());
+//			}
+//
+//	        users.add(user);
+//		}
+//		
 		return users;
 	}
 	

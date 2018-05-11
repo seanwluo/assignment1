@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 
-import models.User;
-
 public class CreateTables {
 	private Connection _dbConnection = null;
 	private LinkedHashMap<String, String> tableQuries = new LinkedHashMap<String, String>();
@@ -27,12 +25,14 @@ public class CreateTables {
 		
 		for(String tableName: tableQuries.keySet())
 		{	
-			_dbConnection.prepareStatement("drop table " + tableName + " if exists;").execute();
+//			_dbConnection.prepareStatement("drop table " + tableName + " if exists;").execute();
 			
 			// Build table create query
 			createQuery = String.format("create table %s (%s);", tableName, tableQuries.get(tableName));
 			_dbConnection.prepareStatement(createQuery).execute();
 		}
+		
+		_dbConnection.commit();
 		_server.stop();
 	}
 	

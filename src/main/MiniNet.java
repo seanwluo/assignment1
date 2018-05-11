@@ -2,6 +2,7 @@ package main;
 
 import db.DBUtil;
 import db.HSQLServer;
+import views.Menu;
 
 /**
  * @author Raj
@@ -27,6 +28,8 @@ public class MiniNet {
 		DBUtil dbUtil = new DBUtil();
 		if(dbUtil.connect()) {
 			System.out.println("Connected successfully");
+			Menu menu = new Menu();
+			menu.load();
 		} else {
 			System.out.println("Not connected");
 		}
