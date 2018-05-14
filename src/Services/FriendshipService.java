@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import Store.FriendshipData;
-import Store.UserData;
 import models.Adult;
 import models.Dependent;
 import models.Friendship;

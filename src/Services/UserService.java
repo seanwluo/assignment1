@@ -97,7 +97,7 @@ public class UserService {
 	 *        age:double, status:String, picUrl:String
 	 * @return 
 	 * */
-	public static void createAdult(String username, String firstname, String lastname, String gender, double age,
+	public static void createAdult(String username, String firstname, String lastname, String gender, int age,
 			String status, String picUrl) {
 	
 		User user = new Adult(username);
@@ -120,7 +120,7 @@ public class UserService {
 	 * @return 
 	 * */
 	public static void createDependent(String parentName_1, String parentName_2, String username, String firstname,
-			String lastname, String gender, double age, String status, String picUrl) {
+			String lastname, String gender, int age, String status, String picUrl) {
 		User parent1 = UserService.findByUsername(parentName_1);
 		User parent2 = UserService.findByUsername(parentName_2);
 		

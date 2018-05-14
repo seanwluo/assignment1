@@ -63,7 +63,7 @@ public class SelectedUserView {
 	
 	private void edit() {
 		String firstname, lastname, gender, status, picUrl;
-		double age;
+		int age;
 		System.out.println("\nEdit Profile.");
 		System.out.print("\nEnter firstname: ");
 		firstname  = _reader.nextLine();
@@ -117,14 +117,14 @@ public class SelectedUserView {
 		return ch;
 	}
 	
-	private double ageInput() {
-		double age = 0.0;
+	private int ageInput() {
+		int age = 0;
 		String input;
 		boolean continueLoop = true;
 		do {
 			try {
 				input = _reader.nextLine();
-				age = Double.parseDouble(input);
+				age = Integer.parseInt(input);
 				
 				if(age > 0) {
 					continueLoop = false;

@@ -15,7 +15,7 @@ public class Profile {
 	private User _user;
 	private String _firstname;
 	private String _lastname;
-	private double _age;
+	private int _age;
 	private String _gender;
 	private String _status;
 	private String _picUrl;
@@ -25,7 +25,7 @@ public class Profile {
 	}
 	
 	public Profile(User user, String firstname, String lastname,
-			double age, String gender, String status, String picUrl) {
+			int age, String gender, String status, String picUrl) {
 		this._user = user;
 		this._firstname = firstname;
 		this._lastname = lastname;
@@ -54,7 +54,7 @@ public class Profile {
 		return _age;
 	}
 
-	public void set_age(double age) {
+	public void set_age(int age) {
 		this._age = age;
 	}
 

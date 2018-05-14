@@ -57,7 +57,7 @@ public class UsersView {
 		choice = inputReader();
 		
 		String username, firstname, lastname, gender, status, picUrl;
-		double age;
+		int age;
 		
 		System.out.print("\nEnter username: ");
 		username = reader.nextLine();
@@ -98,14 +98,14 @@ public class UsersView {
 		return ch;
 	}
 	
-	private double ageInput() {
-		double age = 0.0;
+	private int ageInput() {
+		int age = 0;
 		String input;
 		boolean continueLoop = true;
 		do {
 			try {
 				input = reader.nextLine();
-				age = Double.parseDouble(input);
+				age = Integer.parseInt(input);
 				
 				if(age > 0) {
 					continueLoop = false;

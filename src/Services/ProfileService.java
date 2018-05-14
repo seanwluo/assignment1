@@ -29,7 +29,7 @@ public class ProfileService {
 			String lastname = value.get(1);
 			String gender = value.get(2);
 			// TO DO: Need to catch error
-			double age = Double.parseDouble(value.get(3));
+			int age = Integer.parseInt(value.get(3));
 			String status = value.get(4);
 			String picUrl = value.get(5);
 			
@@ -46,7 +46,7 @@ public class ProfileService {
 	 *  	   status:String,picUrl:String
 	 *  @return boolean
 	 * */
-	public static boolean create(User user, String firstname, String lastname, String gender, double age, String status,
+	public static boolean create(User user, String firstname, String lastname, String gender, int age, String status,
 			String picUrl) {
 		Profile pf = new Profile(user, firstname, lastname, age, gender, status, picUrl);
 		if(pf.create()) {

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 import javax.sql.rowset.CachedRowSet;
 
@@ -24,13 +23,9 @@ public class UserRepository
 	public boolean save(String username, String password, String type) {
 		String sql = String.format("insert into users(username, password, type) values (%s, %s, %s);", 
 				username, password, type);
-//		String sql = "insert into users(username, password, type) values (?, ?, ?);";
 		
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
-//			prepStatement.setString(1, username);
-//			prepStatement.setString(2, password);
-//			prepStatement.setString(3, type);
 			
 			prepStatement.executeQuery();
 			prepStatement.close();
