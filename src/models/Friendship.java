@@ -52,10 +52,8 @@ public class Friendship {
 	public boolean create() {
 		String username1 = _user1.get_username();
 		String username2 = _user2.get_username();
-		String key = username1 + "_" + username2;
 		
-		FriendshipData.write(key, new String[]{username1, username2, _type});
-//		friendShipRepository.save(username1, username2, type);
+		friendShipRepository.save(username1, username2, _type);
 		return true;
 	}
 	
@@ -65,7 +63,7 @@ public class Friendship {
 	 */
 	public boolean delete() {
 		FriendshipData.remove(_id);
-//		friendShipRepository.delete();
+//		friendShipRepository.delete(_id);
 		return true;
 	}
 }

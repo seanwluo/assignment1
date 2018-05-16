@@ -40,7 +40,6 @@ public class ProfileRepository {
 			_dbConnection.commit();
 			prepStatement.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return false;
 		}
 	
@@ -62,7 +61,7 @@ public class ProfileRepository {
 			_dbConnection.commit();
 			result.close();
 		} catch(SQLException e) {
-			e.printStackTrace();
+			System.out.println("Erro in query result");
 		}
 		
 		return rowset;

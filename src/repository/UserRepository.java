@@ -32,7 +32,6 @@ public class UserRepository
 			_dbConnection.commit();
 			prepStatement.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return false;
 		}
 	
@@ -54,10 +53,29 @@ public class UserRepository
 			_dbConnection.commit();
 			result.close();
 		} catch(SQLException e) {
-			e.printStackTrace();
+			System.out.println("Error in query");
 		}
 		
 		return rowset;
 		
+	}
+
+	public ResultSet findByUsername(String username) {
+		CachedRowSet rowset = null;
+		try {
+			PreparedStatement prepStatement = _dbConnection.prepareStatement("select * from users where username = ?");
+			prepStatement.setString(1, username);
+						
+			ResultSet result = prepStatement.executeQuery();
+			rowset = new CachedRowSetImpl();
+			rowset.populate(result);
+			
+			prepStatement.close();
+			result.close();
+		} catch (Exception e) {
+			System.out.println("Error in query");
+		}
+		
+		return rowset;		
 	}
 }

@@ -1,11 +1,13 @@
 package Services;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Map;
 
 import Store.ProfileData;
 import models.Profile;
 import models.User;
+import repository.ProfileRepository;
 
 /**
  * @author Raj
@@ -14,30 +16,41 @@ import models.User;
  *   
  */
 public class ProfileService {
-	
 	/*
 	 *  Get Profile of given user object
 	 *  @param user:User
 	 *  @return Profile
 	 * */
 	public static Profile getByUser(User user) {
-		Map<String, ArrayList<String>> profileData = ProfileData.get();
-		ArrayList<String> value = profileData.get(user.get_username());
+		ProfileRepository profileRepository = new ProfileRepository();
+		Profile profile = null;
+		ResultSet result = profileRepository.findByUser(user.get_username());
 		
-		if(value != null) {
-			String firstname = value.get(0);
-			String lastname = value.get(1);
-			String gender = value.get(2);
-			// TO DO: Need to catch error
-			int age = Integer.parseInt(value.get(3));
-			String status = value.get(4);
-			String picUrl = value.get(5);
-			
-			Profile profile = new Profile(user, firstname, lastname, age, gender, status, picUrl);
+		if(result == null)
+		{
 			return profile;
 		}
 		
-		return null;
+		try
+		{
+			while(result.next())
+			{
+				String firstname = result.getString("firstname");
+				String lastname = result.getString("lastname");
+				String gender = result.getString("gender");
+				// TO DO: Need to catch error
+				int age = result.getInt("age");
+				String status = result.getString("status");
+				String picUrl = result.getString("ulr");
+				
+				profile = new Profile(user, firstname, lastname, age, gender, status, picUrl);
+			}
+		} catch(Exception e)
+		{
+			System.out.println("User not found");
+		}
+		
+		return profile;
 	}
 
 	/*

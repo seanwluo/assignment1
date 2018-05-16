@@ -39,7 +39,6 @@ public class FriendShipRepository
 			prepStatement.close();
 			_dbConnection.commit();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return false;
 		}
 	
@@ -49,10 +48,12 @@ public class FriendShipRepository
 	public ResultSet friendshipByUser(String username)
 	{	
 		CachedRowSet rowset = null;
-		String sql = String.format("select * from friendships where user1=%s or user2=%s;", username, username);
+		String sql = "select * from friendships where user1=? or user2=?";
 		
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
+			prepStatement.setString(1, username);
+			prepStatement.setString(2, username);
 			ResultSet result = prepStatement.executeQuery();
 			rowset = new CachedRowSetImpl();
 			rowset.populate(result);
@@ -61,10 +62,35 @@ public class FriendShipRepository
 			_dbConnection.commit();
 			result.close();
 		} catch(SQLException e) {
-			e.printStackTrace();
+			System.out.println("Error query result");
 		}
 		
-		return rowset;
+		return rowset;	
+	}
+
+	public ResultSet list() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ResultSet friendshipByType(String type) {
+		CachedRowSet rowset = null;
+		String sql = "select * from friendships where user1=? or user2=?";
 		
+		try {
+			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
+			prepStatement.setString(1, type);
+			ResultSet result = prepStatement.executeQuery();
+			rowset = new CachedRowSetImpl();
+			rowset.populate(result);
+			
+			prepStatement.close();
+			_dbConnection.commit();
+			result.close();
+		} catch(SQLException e) {
+			System.out.println("Error query result");
+		}
+		
+		return rowset;	
 	}
 }

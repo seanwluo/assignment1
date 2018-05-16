@@ -61,20 +61,30 @@ public class UserService {
 	 * @return User
 	 * */
 	public static User findByUsername(String username) {
-		Map<String, String> userData = UserData.get();
-		String value = userData.get(username);
+		UserRepository userRepo = new UserRepository();
+		ResultSet result = userRepo.findByUsername(username);
 		
-		if(value != null) {
-			User user;
-			if(value.equals("adult")) {
-				user = new Adult(username, "password");
-			} else {
-				user = new Dependent(username);
-			}
-			return user;
+		if (result == null) {
+			return null;
 		}
 		
-		return null;
+		User user = null;
+		try {
+			while (result.next()) {
+				String usrname = result.getString("username");
+				String type = result.getString("type");
+				
+				if(type.equals("adult")) {
+					user = new Adult(usrname, "password");
+				} else {
+					user = new Dependent(username);
+				}	
+			}
+		} catch(Exception e) {
+			System.out.println("Error in query");
+		}
+		
+		return user;
 	}
 	
 	/*
@@ -89,11 +99,10 @@ public class UserService {
 		User user = new Adult(username, "password");
 		
 		if(user.create()) {
-//			boolean isProfileCreated = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl);
-//			if(isProfileCreated == true ) {
-//				System.out.println("\nUser Created Sucessfully");
-//			}
-
+			boolean isProfileCreated = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl);
+			if(isProfileCreated) {
+				System.out.println("\nUser Created Sucessfully");
+			}
 		} else {
 			System.out.println("\nError! Account not created.");
 		}
