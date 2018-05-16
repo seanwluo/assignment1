@@ -23,23 +23,24 @@ public class MainInterFace extends Application {
 		vbox.setAlignment(Pos.CENTER);
 		//pane.setPadding(new Insets(100,100,100,100));
 	//	pane.setSpacing(10);
-		Label label=new Label("Mininet");
+		Label label=new Label("Welcome To Mininet !");
 		label.setFont(Font.font("Ambel cn",FontWeight.BOLD,30));
 		label.setTextFill(Color.GREEN);
 		//pane.getChildren().add(label);
-		Button btlistall=new Button("list everyone");
-		
-		Button btselectone=new Button("select a person");
-		Button btaddone=new Button("add a person");
-		Button btconfirmfriend=new Button("are these two are friends");
-		Button btexit=new Button("exit");
+		Button listall=new Button("list everyone");
+		Button selectone=new Button("select a person");
+		Button addone=new Button("add a person");
+		Button confirmfriend=new Button("are these two are friends");
+		Button PC=new Button("parents or children");
+		Button exit=new Button("exit");
 		
 		vbox.getChildren().add(label);
-		vbox.getChildren().add(btlistall);
-		vbox.getChildren().add(btselectone);
-		vbox.getChildren().add(btaddone);
-		vbox.getChildren().add(btconfirmfriend);
-		vbox.getChildren().add(btexit);
+		vbox.getChildren().add(listall);
+		vbox.getChildren().add(selectone);
+		vbox.getChildren().add(addone);
+		vbox.getChildren().add(confirmfriend);
+		vbox.getChildren().add(PC);
+		vbox.getChildren().add(exit);
 		
 		
 		Scene scene=new Scene(vbox,700,500);
@@ -47,24 +48,34 @@ public class MainInterFace extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
-		btlistall.setOnAction((ActionEvent e)->{
+		listall.setOnAction((ActionEvent e)->{
 			//UsersView usr = new UsersView();
 			//usr.listAllUser();
 			ListEveryOne dis=new ListEveryOne();
 			dis.start(primaryStage);
 		});
 		
-		btselectone.setOnAction((ActionEvent e)->{
+		selectone.setOnAction((ActionEvent e)->{
 			SearchPerson spi=new SearchPerson();
 			spi.start(primaryStage);
 		});
 		
-		btaddone.setOnAction(e->{
+		addone.setOnAction(e->{
 			NormalDependent ND=new NormalDependent();
 			ND.start(primaryStage);
 		});
 		
-		btexit.setOnAction((e)->{
+		confirmfriend.setOnAction((e)->{
+			AreTheyFriends ATF=new AreTheyFriends();
+			ATF.start(primaryStage);
+		});
+		
+		PC.setOnAction(e->{
+			SearchPerson spi=new SearchPerson();
+			spi.start(primaryStage);
+		});
+		
+		exit.setOnAction((e)->{
 			System.exit(0);
 		});
 	}
