@@ -58,6 +58,12 @@ public class MainInterFace extends Application {
 			SearchPerson spi=new SearchPerson();
 			spi.start(primaryStage);
 		});
+		
+		btaddone.setOnAction(e->{
+			NormalDependent ND=new NormalDependent();
+			ND.start(primaryStage);
+		});
+		
 		btexit.setOnAction((e)->{
 			System.exit(0);
 		});
