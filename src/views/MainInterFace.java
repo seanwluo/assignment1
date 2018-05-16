@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 public class MainInterFace extends Application {
 	public void start(Stage primaryStage) {
 		VBox vbox=new VBox();
+		//vbox.setPrefWidth(10);
 		vbox.setSpacing(20);
 		vbox.setAlignment(Pos.CENTER);
 		//pane.setPadding(new Insets(100,100,100,100));
@@ -33,6 +34,13 @@ public class MainInterFace extends Application {
 		Button confirmfriend=new Button("are these two are friends");
 		Button PC=new Button("parents or children");
 		Button exit=new Button("exit");
+		
+		listall.setMaxWidth(230);
+		selectone.setMaxWidth(230);
+		addone.setMaxWidth(230);
+		confirmfriend.setMaxWidth(230);
+		PC.setMaxWidth(230);
+		exit.setMaxWidth(230);
 		
 		vbox.getChildren().add(label);
 		vbox.getChildren().add(listall);

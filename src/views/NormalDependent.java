@@ -22,9 +22,12 @@ public class NormalDependent extends Application {
 		Label label=new Label("choose type");
 		label.setFont(Font.font("Ambel cn",FontWeight.BOLD,20));
 		label.setTextFill(Color.BLACK);
-		Button normal=new Button("Normal");
-		Button dependent=new Button("dependent");
+		Button normal=new Button("NORMAL");
+		Button dependent=new Button("DEPENDENT");
 		Button back=new Button("Back");
+		
+		normal.setMaxWidth(180);
+		dependent.setMaxWidth(180);
 		
 		pane.setPadding(new Insets(11,12,13,14));
 		pane.setVgap(5.5);
