@@ -16,20 +16,21 @@ public class UserRepository
 	private Connection _dbConnection;
 	
 	public UserRepository() {
-		DBUtil db = new DBUtil();
-		_dbConnection = db.getConnection();
+		_dbConnection = DBUtil.getConnection();
 	}
 	
 	public boolean save(String username, String password, String type) {
-		String sql = String.format("insert into users(username, password, type) values (%s, %s, %s);", 
-				username, password, type);
+		String sql = "insert into users(username, password, type) values (?, ?, ?)";
 		
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
+			prepStatement.setString(1, username);
+			prepStatement.setString(2, password);
+			prepStatement.setString(3, type);
 			
-			prepStatement.executeQuery();
-			prepStatement.close();
+			prepStatement.execute();
 			_dbConnection.commit();
+			prepStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;

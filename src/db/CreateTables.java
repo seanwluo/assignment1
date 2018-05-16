@@ -9,12 +9,12 @@ public class CreateTables {
 	private LinkedHashMap<String, String> tableQuries = new LinkedHashMap<String, String>();
 	private HSQLServer _server = null;
 	
-	public CreateTables() {
+	public CreateTables() throws SQLException {
 		this._server = new HSQLServer();
 		_server.start();
 		DBUtil dbUtil = new DBUtil();
 		dbUtil.connect();
-		this._dbConnection = dbUtil.getConnection();
+		this._dbConnection = DBUtil.getConnection();
 	}
 	
 	// TODO: Need to run at program first bootup
@@ -33,12 +33,17 @@ public class CreateTables {
 		}
 		
 		_dbConnection.commit();
+		_dbConnection.close();
 		_server.stop();
 	}
 	
 	private void buildTablesQuery()
 	{	
-		tableQuries.put("users", "username varchar(25) not null, password varchar(25), type varchar(5), primary key (username)");
+		tableQuries.put("users", 
+				"username varchar(25) not null, "
+				+ "password varchar(25), "
+				+ "type varchar(5), "
+				+ "primary key (username)");
 
 		tableQuries.put("profiles", 
 				"id integer identity, "

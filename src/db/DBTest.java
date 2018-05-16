@@ -15,14 +15,14 @@ public class DBTest {
 		hsqlServer = new Server();
 		hsqlServer.setLogWriter(null);
 		hsqlServer.setSilent(true);
-		hsqlServer.setDatabaseName(0, "TestDB");
-		hsqlServer.setDatabasePath(0, "file:MYDB");
+		hsqlServer.setDatabaseName(0, "MiniNetDB");
+		hsqlServer.setDatabasePath(0, "file:MiniNetDB");
 		hsqlServer.start();
 		// making a connection
 		try {
 		Class.forName("org.hsqldb.jdbcDriver");
 		connection =
-		DriverManager.getConnection("jdbc:hsqldb:TestDB", "sa", "123");
+		DriverManager.getConnection("jdbc:hsqldb:MiniNetDB", "user", "pass123");
 		connection.prepareStatement("drop table barcodes if exists;").execute();
 		connection.prepareStatement("create table barcodes (id integer, barcode varchar(20) not null);").execute();
 		connection.prepareStatement("insert into barcodes (id, barcode)"

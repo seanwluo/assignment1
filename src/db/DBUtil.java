@@ -35,9 +35,8 @@ public class DBUtil
 		try 
 		{
 			Class.forName("org.hsqldb.jdbcDriver");
-			_dbConnection =
-			DriverManager.getConnection("jdbc:hsqldb:" + DB_NAME, "user", "pass123");
-			_dbConnection.commit();
+			_dbConnection = DriverManager.getConnection("jdbc:hsqldb:" + DB_NAME, "user", "pass123");
+//			_dbConnection.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -49,7 +48,7 @@ public class DBUtil
 		return true;
 	}
 	
-	public Connection getConnection()
+	public static Connection getConnection()
 	{
 		return _dbConnection;
 	}

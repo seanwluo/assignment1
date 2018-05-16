@@ -23,15 +23,22 @@ public class ProfileRepository {
 	public boolean save(String username, String firstname, String lastname, 
 			int age, String gender, String status, String url)
 	{	
-		String sql = String.format("insert into friendships(user, firstname, lastname, age, gender, status, url) "
-				+ "values (%s, %s, %s %s %s %s %s);", username, firstname, lastname, age, gender, status, url);
+		String sql = "insert into friendships(user, firstname, lastname, age, gender, status, url) "
+				+ "values (?, ?, ?, ?, ?, ?, ?)";
 	
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
+			prepStatement.setString(1, username);
+			prepStatement.setString(2, firstname);
+			prepStatement.setString(3, lastname);
+			prepStatement.setInt(4, age);
+			prepStatement.setString(5, gender);
+			prepStatement.setString(6, status);
+			prepStatement.setString(7, url);			
 			
 			prepStatement.executeQuery();
-			prepStatement.close();
 			_dbConnection.commit();
+			prepStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;

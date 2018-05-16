@@ -1,6 +1,5 @@
 package db;
 
-import org.hsqldb.HsqlException;
 import org.hsqldb.Server;
 
 /**
@@ -11,7 +10,7 @@ import org.hsqldb.Server;
 public class HSQLServer
 {
 	private final static String DB_NAME = "MiniNetDB";
-	private final static String DB_PATH = "file:MYDB";
+	private final static String DB_PATH = "file:MiniNetDB";
 	private Server _hsqlServer = null;
 	
 	public HSQLServer()
@@ -21,6 +20,9 @@ public class HSQLServer
 		_hsqlServer.setSilent(true);
 		_hsqlServer.setDatabaseName(0, DB_NAME);
 		_hsqlServer.setDatabasePath(0, DB_PATH);
+//		_hsqlServer.putPropertiesFromString("hsqldb.write_delay=false");
+//		_hsqlServer.setNoSystemExit(true);
+//		_hsqlServer.setPort(8080);
 	}
 	
 	public void start()

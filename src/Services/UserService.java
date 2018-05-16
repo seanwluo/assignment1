@@ -41,31 +41,17 @@ public class UserService {
 				String type = result.getString("type");
 				
 				if(type.equals("adult")) {
-					user = new Adult(username);
+					user = new Adult(username, "password");
 				} else {
 					user = new Dependent(username);
 				}
+				users.add(user);
 			}
 
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-//		Map<String, String> userData = UserData.get();
-//
-//		for (Map.Entry<String, String> entry : userData.entrySet()) {
-//			User user;
-//			
-//			if( entry.getValue().equals("adult") ) {
-//				user = new Adult(entry.getKey());
-//			} else {
-//				
-//				user = new Dependent(entry.getKey());
-//			}
-//
-//	        users.add(user);
-//		}
-//		
+
 		return users;
 	}
 	
@@ -81,7 +67,7 @@ public class UserService {
 		if(value != null) {
 			User user;
 			if(value.equals("adult")) {
-				user = new Adult(username);
+				user = new Adult(username, "password");
 			} else {
 				user = new Dependent(username);
 			}
@@ -100,13 +86,13 @@ public class UserService {
 	public static void createAdult(String username, String firstname, String lastname, String gender, int age,
 			String status, String picUrl) {
 	
-		User user = new Adult(username);
+		User user = new Adult(username, "password");
 		
 		if(user.create()) {
-			boolean isProfileCreated = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl);
-			if(isProfileCreated == true ) {
-				System.out.println("\nUser Created Sucessfully");
-			}
+//			boolean isProfileCreated = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl);
+//			if(isProfileCreated == true ) {
+//				System.out.println("\nUser Created Sucessfully");
+//			}
 
 		} else {
 			System.out.println("\nError! Account not created.");

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import Store.ProfileData;
+import repository.ProfileRepository;
 
 /**
  * @author Luo
@@ -19,9 +20,11 @@ public class Profile {
 	private String _gender;
 	private String _status;
 	private String _picUrl;
+	private ProfileRepository profileRepository;
 	
 	public Profile(User user) {
 		this._user = user;
+		profileRepository = new ProfileRepository();
 	}
 	
 	public Profile(User user, String firstname, String lastname,
@@ -90,24 +93,25 @@ public class Profile {
 
 	public boolean create() {
 //		check unique key
-		if(isUniqUsername()) {
-			ProfileData.write(_user.get_username(), new String[]{_firstname, _lastname, _gender, Double.toString(_age), _status, _picUrl});
-			return true;
-		} else {
-			System.out.println("\nUser profile already created");
-			return false;
-		}
+		return profileRepository.save(_user.get_username(), _firstname, _lastname, _age, _gender, _status, _picUrl);
+//		if(isUniqUsername()) {
+//			ProfileData.write(_user.get_username(), new String[]{_firstname, _lastname, _gender, Double.toString(_age), _status, _picUrl});
+//			return true;
+//		} else {
+//			System.out.println("\nUser profile already created");
+//			return false;
+//		}
 	}
 	
 	public boolean update() {
 		ProfileData.write(_user.get_username(), new String[]{_firstname, _lastname, _gender, Double.toString(_age)});
-		
+//		profileRepository.update();
 		return true;
 	}
 	
 	public boolean delete() {
 		ProfileData.remove(_user.get_username());
-
+//		profileRepository.delete();
 		return true;
 	}
 	

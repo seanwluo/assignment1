@@ -10,6 +10,7 @@ import java.util.Map;
 import Services.FriendshipService;
 import Services.ProfileService;
 import Store.UserData;
+import repository.UserRepository;
 
 /**
  * @author Luo
@@ -20,13 +21,15 @@ import Store.UserData;
 public abstract class User {
 	private String _username;
 	private String _type;
-	
+	private String _password;
+	private UserRepository userRepository;
 	/*
 	 * Constructor
 	 * @param username:String
 	 * */
 	public User(String username) {
 		this._username = username;
+		userRepository = new UserRepository();
 	}
 	
 	/*
@@ -36,6 +39,14 @@ public abstract class User {
 	public User(String username, String type) {
 		this._username = username;
 		this._type = type;
+		userRepository = new UserRepository();
+	}
+	
+	public User(String username, String password, String type) {
+		this._username = username;
+		this._password = password;
+		this._type = type;
+		userRepository = new UserRepository();
 	}
 	
 	/*
@@ -118,6 +129,14 @@ public abstract class User {
 		return users;
 	}
 	
-	public abstract boolean create();
+//	public abstract boolean create();
 	public abstract boolean connect(User user2);
+	
+	public boolean create() {
+		return userRepository.save(_username, _password, _type);
+	}
+	
+//	public boolean update() {
+//		return userRepository.update(_username, _password, _type);
+//	}
 }

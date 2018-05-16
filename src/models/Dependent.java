@@ -23,16 +23,16 @@ public class Dependent extends User {
 	 * Create Dependent user
 	 * @return boolean
 	 */
-	@Override
-	public boolean create() {
-		if( !isUniqUsername() ) {
-			System.out.println("\nUsername already exists.");
-			return false;
-		}
-		
-		UserData.write(this.get_username(), TYPE);
-		return true;
-	}
+//	@Override
+//	public boolean create() {
+//		if( !isUniqUsername() ) {
+//			System.out.println("\nUsername already exists.");
+//			return false;
+//		}
+//		
+//		UserData.write(this.get_username(), TYPE);
+//		return true;
+//	}
 
 	/*
 	 * Connect to another users

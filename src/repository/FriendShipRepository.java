@@ -22,17 +22,18 @@ public class FriendShipRepository
 	
 	public FriendShipRepository()
 	{
-		DBUtil db = new DBUtil();
-		_dbConnection = db.getConnection();
+		_dbConnection = DBUtil.getConnection();
 	}
 	
 	public boolean save(String username1, String username2, String type)
 	{	
-		String sql = String.format("insert into friendships(user1, user2, type) values (%s, %s, %s);", 
-				username1, username2, type);
+		String sql = "insert into friendships(user1, user2, type) values (?, ?, ?)";
 	
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
+			prepStatement.setString(1, username1);
+			prepStatement.setString(2, username2);
+			prepStatement.setString(3, type);
 			
 			prepStatement.executeQuery();
 			prepStatement.close();

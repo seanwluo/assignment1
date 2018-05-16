@@ -12,26 +12,26 @@ import Store.UserData;
 public class Adult extends User {
 	private final static String TYPE = "Adult";	
 	
-	public Adult(String username) {
-		super(username, TYPE);
+	public Adult(String username, String password) {
+		super(username, password, TYPE);
 	}
-
+	
 	/*
 	 * Create Adult user
 	 * @return boolean
 	 */
-	@Override
-	public boolean create() {
-		//Check username is already exists into the system
-		if(!isUniqUsername()) {
-			System.out.println("\nUsername already exists.");
-			return false;
-		}
-		
-		UserData.write(this.get_username(), TYPE);
-		
-		return true;
-	}
+//	@Override
+//	public boolean create() {
+//		//Check username is already exists into the system
+//		if(!isUniqUsername()) {
+//			System.out.println("\nUsername already exists.");
+//			return false;
+//		}
+//		
+//		UserData.write(this.get_username(), TYPE);
+//		
+//		return true;
+//	}
 
 	/*
 	 * Connect to another Adult users only

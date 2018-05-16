@@ -1,6 +1,7 @@
 package models;
 
 import Store.FriendshipData;
+import repository.FriendShipRepository;
 
 /**
  * @author Raj
@@ -14,18 +15,21 @@ public class Friendship {
 	private User _user1;
 	private User _user2;
 	private String _type;
+	private FriendShipRepository friendShipRepository;
 	
 	public Friendship (String id, User user1, User user2, String type) {
 		this._id = id;
 		this._user1 = user1;
 		this._user2 = user2;
 		this._type = type;
+		friendShipRepository = new FriendShipRepository();
 	}
 	
 	public Friendship (User user1, User user2, String type) {
 		this._user1 = user1;
 		this._user2 = user2;
 		this._type = type;
+		friendShipRepository = new FriendShipRepository();
 	}
 	
 	public String get_type() {
@@ -51,7 +55,7 @@ public class Friendship {
 		String key = username1 + "_" + username2;
 		
 		FriendshipData.write(key, new String[]{username1, username2, _type});
-		
+//		friendShipRepository.save(username1, username2, type);
 		return true;
 	}
 	
@@ -61,6 +65,7 @@ public class Friendship {
 	 */
 	public boolean delete() {
 		FriendshipData.remove(_id);
+//		friendShipRepository.delete();
 		return true;
 	}
 }
