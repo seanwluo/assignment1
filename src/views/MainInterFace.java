@@ -16,7 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class maininterface extends Application {
+public class MainInterFace extends Application {
 	public void start(Stage primaryStage) {
 		VBox vbox=new VBox();
 		vbox.setSpacing(20);
@@ -50,12 +50,12 @@ public class maininterface extends Application {
 		btlistall.setOnAction((ActionEvent e)->{
 			//UsersView usr = new UsersView();
 			//usr.listAllUser();
-			listallnameinterface dis=new listallnameinterface();
+			ListEveryOne dis=new ListEveryOne();
 			dis.start(primaryStage);
 		});
 		
 		btselectone.setOnAction((ActionEvent e)->{
-			searchpersoninterface spi=new searchpersoninterface();
+			SearchPerson spi=new SearchPerson();
 			spi.start(primaryStage);
 		});
 		btexit.setOnAction((e)->{

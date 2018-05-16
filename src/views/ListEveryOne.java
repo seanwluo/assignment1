@@ -29,7 +29,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections; 
 
 
-public class listallnameinterface extends Application{
+public class ListEveryOne extends Application{
 	public void start(Stage primaryStage) {
 		VBox vbox=new VBox();
 		vbox.setSpacing(10);
@@ -54,7 +54,7 @@ public class listallnameinterface extends Application{
 		Button btback=new Button("BACK");
 		vbox.getChildren().add(btback);
 		btback.setOnAction((ActionEvent e)->{
-			maininterface fin=new maininterface();
+			MainInterFace fin=new MainInterFace();
 			fin.start(primaryStage);
 		});
 		Scene scene=new Scene(vbox,700,500);
