@@ -24,22 +24,15 @@ public class AreTheyFriends  extends Application{
 		pane.setVgap(5.5);
 		
 		pane.add(new Label("input first person's name"),0,0);
-		pane.add(tfmi1,1,2);
+		pane.add(tfmi1,0,2);
 		pane.add(new Label("input next person's name"),0,3);
-		pane.add(tfmi2, 1, 4);
-		pane.add(back,1,5);
+		pane.add(tfmi2, 0, 4);
+		pane.add(back,0,6);
 		
 		Scene scene = new Scene(pane, 700, 500);
 		primaryStage.setTitle("Mininet"); // Set the stage title
 		primaryStage.setScene(scene); // Place the scene in the stage
 		primaryStage.show();
-		
-		
-		
-		
-		
-		
-		
 		
 		back.setOnAction((ActionEvent e)->{
 		MainInterFace fin=new MainInterFace();

@@ -45,7 +45,17 @@ public class NormalDependent extends Application {
 		
 		
 		
-		back.setOnAction((ActionEvent e)->{
+		normal.setOnAction((ActionEvent e)->{
+			AddNormal ad=new AddNormal();
+			ad.start(primaryStage);
+		});
+		
+		dependent.setOnAction(e->{
+			AddDependent AD=new AddDependent();
+			AD.start(primaryStage);
+		});
+		
+		back.setOnAction( e->{
 			MainInterFace fin=new MainInterFace();
 			fin.start(primaryStage);
 			}
@@ -57,17 +67,3 @@ public class NormalDependent extends Application {
 }
 
 
-/*
-public class SearchPerson extends Application{
-	public void start(Stage primaryStage) {
-		GridPane pane=new GridPane();
-		pane.setAlignment(Pos.CENTER);
-		Button back=new Button("back");
-		TextField tfMi = new TextField();
-		pane.setPadding(new Insets(11, 12, 13, 14));	
-		pane.setHgap(5.5);
-		pane.setVgap(5.5);
-		
-		pane.add(new Label("input name"),0,0);
-		pane.add(tfMi,1,0);
-		pane.add(back, 1, 4);*/
