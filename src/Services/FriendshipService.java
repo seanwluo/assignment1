@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 
 import Store.FriendshipData;
 import models.Adult;
-import models.Dependent;
+import models.Children;
 import models.Friendship;
 import models.User;
 import repository.FriendShipRepository;
@@ -147,7 +147,7 @@ public class FriendshipService {
 	 * @param dependent:Dependent
 	 * @return List<User>
 	 */
-	public static List<User> getParents(Dependent dependent) {
+	public static List<User> getParents(Children dependent) {
 		List<Friendship> allFriends = FriendshipService.findByUsername(dependent.get_username());	
 		List<User> parents = new ArrayList<User>();
 		
@@ -177,9 +177,9 @@ public class FriendshipService {
 		for(Friendship frnd : allFriends) {
 			User[] users = frnd.getUsers();
 			// If user is Dependent then store
-			if(users[0] instanceof Dependent) {
+			if(users[0] instanceof Children) {
 				childrens.add(users[0]);
-			} else if(users[1] instanceof Dependent) {
+			} else if(users[1] instanceof Children) {
 				childrens.add(users[1]);
 			}
 		}
