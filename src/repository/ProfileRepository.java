@@ -20,10 +20,10 @@ public class ProfileRepository {
 	}
 	
 	public boolean save(String username, String firstname, String lastname, 
-			int age, String gender, String status, String url)
+			int age, String gender, String status, String url, String state)
 	{	
-		String sql = "insert into friendships(user, firstname, lastname, age, gender, status, url) "
-				+ "values (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into friendships(user, firstname, lastname, age, gender, status, url, state) "
+				+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
 	
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
@@ -33,12 +33,15 @@ public class ProfileRepository {
 			prepStatement.setInt(4, age);
 			prepStatement.setString(5, gender);
 			prepStatement.setString(6, status);
-			prepStatement.setString(7, url);			
+			prepStatement.setString(7, url);
+			prepStatement.setString(8, state);	
 			
 			prepStatement.executeQuery();
 			_dbConnection.commit();
 			prepStatement.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
+			
 			return false;
 		}
 	

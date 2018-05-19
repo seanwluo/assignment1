@@ -20,6 +20,7 @@ public class Profile {
 	private String _gender;
 	private String _status;
 	private String _picUrl;
+	private String _state;
 	private ProfileRepository profileRepository;
 	
 	public Profile(User user) {
@@ -28,13 +29,14 @@ public class Profile {
 	}
 	
 	public Profile(User user, String firstname, String lastname,
-			int age, String gender, String status, String picUrl) {
+			int age, String gender, String status, String picUrl, String state) {
 		this._user = user;
 		this._firstname = firstname;
 		this._lastname = lastname;
 		this._age = age;
 		this._gender = gender;
 		this._picUrl = picUrl;
+		this._state = state;
 	}
 
 	public String get_firstname() {
@@ -85,15 +87,24 @@ public class Profile {
 		this._picUrl = picUrl;
 	}
 	
+	public String get_state() {
+		return _state;
+	}
+	
+	public void set_state(String state) {
+		this._state = state;
+	}
+	
 	public String toString() {
 		return "\nUsername: " + _user.get_username() + "\nFirst name: "  +  _firstname +
 				"\nLast name: " + _lastname + "\nGender: " + _gender + "\nAge: " + _age + 
-				"\nStatus: " + _status + "\nProfile image: " + _picUrl;
+				"\nStatus: " + _status + "\nProfile image: " + _picUrl + "\nState: " + _state;
 	}
 
 	public boolean create() {
 //		check unique key
-		return profileRepository.save(_user.get_username(), _firstname, _lastname, _age, _gender, _status, _picUrl);
+		return profileRepository.save(_user.get_username(), _firstname, _lastname, _age, _gender, 
+				_status, _picUrl, _state);
 //		if(isUniqUsername()) {
 //			ProfileData.write(_user.get_username(), new String[]{_firstname, _lastname, _gender, Double.toString(_age), _status, _picUrl});
 //			return true;
