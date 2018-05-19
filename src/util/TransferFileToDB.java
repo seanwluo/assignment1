@@ -70,7 +70,9 @@ public class TransferFileToDB {
 			String[] dataArray = data.split(",");
 			String user1 = dataArray[0].trim();
 			String user2 = dataArray[1].trim();
-			String tpye = dataArray[2].trim();
+			String type = dataArray[2].trim();
+			
+			frndRepo.save(user1, user2, type);
 		}
 	}
 	
@@ -118,7 +120,7 @@ public class TransferFileToDB {
 			System.out.println("Age data is not in integer format.");
 		}
 		
-		return 0;
+		return age;
 	}
 	
 //	split name on whitesapce to get firstname and last name

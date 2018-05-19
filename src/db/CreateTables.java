@@ -3,7 +3,11 @@ package db;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
-
+/**
+ * 
+ * @author Raj
+ *
+ */
 public class CreateTables {
 	private Connection _dbConnection = null;
 	private LinkedHashMap<String, String> tableQuries = new LinkedHashMap<String, String>();
@@ -22,19 +26,23 @@ public class CreateTables {
 	{	
 		String createQuery = null;
 		buildTablesQuery();
-		
-		for(String tableName: tableQuries.keySet())
-		{	
-//			_dbConnection.prepareStatement("drop table " + tableName + " if exists;").execute();
-			
-			// Build table create query
-			createQuery = String.format("create table %s (%s);", tableName, tableQuries.get(tableName));
-			_dbConnection.prepareStatement(createQuery).execute();
+		_dbConnection.prepareStatement("truncate schema public restart identity and commit no check").execute();
+
+		try {
+			for(String tableName: tableQuries.keySet())
+			{	
+//				TODO: Check for drop table which is referenced by fireign j=key constraint
+//				_dbConnection.prepareStatement("drop table " + tableName + " if exists;").execute();
+				
+				// Build table create query
+//				createQuery = String.format("create table %s (%s);", tableName, tableQuries.get(tableName));
+//				_dbConnection.prepareStatement(createQuery).execute();
+			}
+			_dbConnection.commit();
+		} finally {
+			_dbConnection.close();
+			_server.stop();
 		}
-		
-		_dbConnection.commit();
-		_dbConnection.close();
-		_server.stop();
 	}
 	
 	private void buildTablesQuery()
@@ -42,7 +50,7 @@ public class CreateTables {
 		tableQuries.put("users", 
 				"username varchar(25) not null, "
 				+ "password varchar(25), "
-				+ "type varchar(5), "
+				+ "type varchar(8), "
 				+ "primary key (username)");
 
 		tableQuries.put("profiles", 
@@ -54,6 +62,7 @@ public class CreateTables {
 				+ "gender varchar(6), "
 				+ "status varchar(30), "
 				+ "picUrl varchar(100), "
+				+ "state varchar(6), "
 				+ "primary key (id, user), "
 				+ "foreign key(user) references users(username)");
 		
