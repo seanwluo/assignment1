@@ -10,7 +10,7 @@ import Store.UserData;
  * 
  */
 public class Adult extends User {
-	private final static String TYPE = "Adult";	
+	private final static String TYPE = "adult";	
 	
 	public Adult(String username, String password) {
 		super(username, password, TYPE);

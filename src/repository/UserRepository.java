@@ -21,7 +21,7 @@ public class UserRepository
 	
 	public boolean save(String username, String password, String type) {
 		String sql = "insert into users(username, password, type) values (?, ?, ?)";
-		
+		System.out.println(type);
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
 			prepStatement.setString(1, username);
@@ -32,6 +32,7 @@ public class UserRepository
 			_dbConnection.commit();
 			prepStatement.close();
 		} catch (SQLException e) {
+//			e.printStackTrace();
 			return false;
 		}
 	
