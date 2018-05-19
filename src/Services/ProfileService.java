@@ -38,8 +38,9 @@ public class ProfileService {
 				int age = result.getInt("age");
 				String status = result.getString("status");
 				String picUrl = result.getString("ulr");
+				String state = result.getString("state");
 				
-				profile = new Profile(user, firstname, lastname, age, gender, status, picUrl);
+				profile = new Profile(user, firstname, lastname, age, gender, status, picUrl, state);
 			}
 		} catch(Exception e)
 		{
@@ -56,8 +57,8 @@ public class ProfileService {
 	 *  @return boolean
 	 * */
 	public static boolean create(User user, String firstname, String lastname, String gender, int age, String status,
-			String picUrl) {
-		Profile pf = new Profile(user, firstname, lastname, age, gender, status, picUrl);
+			String picUrl, String state) {
+		Profile pf = new Profile(user, firstname, lastname, age, gender, status, picUrl, state);
 		if(pf.create()) {
 			System.out.println("\n User profile created Sucessfully");
 			System.out.println(pf);

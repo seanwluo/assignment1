@@ -56,7 +56,7 @@ public class UsersView {
 		System.out.println("2. Dependent");
 		choice = inputReader();
 		
-		String username, firstname, lastname, gender, status, picUrl;
+		String username, firstname, lastname, gender, status, picUrl, state;
 		int age;
 		
 		System.out.print("\nEnter username: ");
@@ -73,9 +73,11 @@ public class UsersView {
 		status = reader.nextLine();
 		System.out.println("\nEnter profile pic");
 		picUrl = reader.nextLine();
+		System.out.println("\nEnter state");
+		state = reader.nextLine();
 		
 		if(choice.equals("1")) {
-			UserService.createAdult(username, firstname, lastname, gender, age, status, picUrl);
+			UserService.createAdult(username, firstname, lastname, gender, age, status, picUrl, state);
 		} else {
 			System.out.println("\nEnter your parents username.");
 			System.out.println("\nEnter first parent username: ");
@@ -83,7 +85,8 @@ public class UsersView {
 			System.out.println("\nEnter second parent username: ");
 			String parentName_2 = reader.nextLine();
 			
-			UserService.createDependent(parentName_1, parentName_2, username, firstname, lastname, gender, age, status, picUrl);
+			UserService.createDependent(parentName_1, parentName_2, username, firstname, lastname, 
+					gender, age, status, picUrl, state);
 		}
 	}
 	

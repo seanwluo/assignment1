@@ -91,12 +91,12 @@ public class UserService {
 	 * @return 
 	 * */
 	public static void createAdult(String username, String firstname, String lastname, String gender, int age,
-			String status, String picUrl) {
+			String status, String picUrl, String state) {
 	
 		User user = new Adult(username, "password");
 		
 		if(user.create()) {
-			boolean isProfileCreated = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl);
+			boolean isProfileCreated = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl, state);
 			if(isProfileCreated) {
 				System.out.println("\nUser Created Sucessfully");
 			}
@@ -112,7 +112,7 @@ public class UserService {
 	 * @return 
 	 * */
 	public static void createDependent(String parentName_1, String parentName_2, String username, String firstname,
-			String lastname, String gender, int age, String status, String picUrl) {
+			String lastname, String gender, int age, String status, String picUrl, String state) {
 		User parent1 = UserService.findByUsername(parentName_1);
 		User parent2 = UserService.findByUsername(parentName_2);
 		
@@ -123,7 +123,7 @@ public class UserService {
 			User user = new Children(username);
 			
 			if(user.create()) {
-				boolean isProfileCreated = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl);
+				boolean isProfileCreated = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl, state);
 				if(isProfileCreated == true ) {
 					System.out.println("User Created Sucessfully");
 				}
