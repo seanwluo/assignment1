@@ -3,9 +3,6 @@ package Services;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import Store.UserData;
 import models.Adult;
 import models.Dependent;
 import models.User;

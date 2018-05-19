@@ -79,20 +79,28 @@ public class SelectedUserView {
 		picUrl = _reader.nextLine();
 		
 		Profile pf = _user.get_profile();
-		pf.set_firstname(firstname);
-		pf.set_lastname(lastname);
-		pf.set_gender(gender);
-		pf.set_age(age);
-		pf.set_status(status);
-		pf.set_picUrl(picUrl);
+		if(pf==null) {
+			System.out.println("Not found");
+		} else {
+			pf.set_firstname(firstname);
+			pf.set_lastname(lastname);
+			pf.set_gender(gender);
+			pf.set_age(age);
+			pf.set_status(status);
+			pf.set_picUrl(picUrl);
+			
+			pf.update();
+		}
 		
-		pf.update();
 		
 	}
 	
 	private void delete() {
 		Profile profile = _user.get_profile();
-		profile.delete();
+		if(profile != null)
+		{
+			profile.delete();
+		}
 		
 		System.out.println("\nUser profile deleted.");
 	}

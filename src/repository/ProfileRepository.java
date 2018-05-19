@@ -16,8 +16,7 @@ public class ProfileRepository {
 	
 	public ProfileRepository()
 	{
-		DBUtil db = new DBUtil();
-		_dbConnection = db.getConnection();
+		_dbConnection = DBUtil.getConnection();
 	}
 	
 	public boolean save(String username, String firstname, String lastname, 
@@ -61,7 +60,7 @@ public class ProfileRepository {
 			_dbConnection.commit();
 			result.close();
 		} catch(SQLException e) {
-			System.out.println("Erro in query result");
+			System.out.println("Error in query result");
 		}
 		
 		return rowset;

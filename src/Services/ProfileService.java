@@ -1,10 +1,6 @@
 package Services;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Map;
-
-import Store.ProfileData;
 import models.Profile;
 import models.User;
 import repository.ProfileRepository;
