@@ -13,7 +13,7 @@ import org.hsqldb.Server;
  */
 public class DBUtil 
 {	
-	private final static String DB_NAME = "MiniNetDB";
+	private final static String DB_NAME = "MiniNet";
 	private static Connection _dbConnection = null;
 	
 	public boolean connect() {
