@@ -1,4 +1,4 @@
-package Services;
+package util;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileService
+public class FileHandler
 {
 	private String _fileName;
 	
-	public  FileService(String fileName)
+	public  FileHandler(String fileName)
 	{
 		this._fileName = fileName;
 	}
