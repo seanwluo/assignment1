@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import models.Adult;
-import models.Dependent;
+import models.Children;
 import models.User;
 import repository.UserRepository;
 
@@ -40,7 +40,7 @@ public class UserService {
 				if(type.equals("adult")) {
 					user = new Adult(username, "password");
 				} else {
-					user = new Dependent(username);
+					user = new Children(username);
 				}
 				users.add(user);
 			}
@@ -74,7 +74,7 @@ public class UserService {
 				if(type.equals("adult")) {
 					user = new Adult(usrname, "password");
 				} else {
-					user = new Dependent(username);
+					user = new Children(username);
 				}	
 			}
 		} catch(Exception e) {
@@ -120,7 +120,7 @@ public class UserService {
 			System.out.println("\nError! Account not created.");
 			System.out.println("\nBoth parents should have account.");
 		} else {
-			User user = new Dependent(username);
+			User user = new Children(username);
 			
 			if(user.create()) {
 				boolean isProfileCreated = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl);

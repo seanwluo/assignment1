@@ -12,10 +12,10 @@ import Store.UserData;
  *  implement the methods create and connect
  * 
  */
-public class Dependent extends User {
-	private final static String TYPE = "dependent";
+public class Children extends User {
+	private final static String TYPE = "children";
 	
-	public Dependent(String username) {
+	public Children(String username) {
 		super(username, TYPE);
 	}
 	
@@ -45,7 +45,7 @@ public class Dependent extends User {
 		double age = profile.get_age();
 		
 		// Only friends with other dependent
-		if (user2 instanceof Dependent) {
+		if (user2 instanceof Children) {
 			// Dependent 2 years or under cannot have friends
 			if(age <= 2) {
 				System.out.println("\nUnder age to have other friends");
@@ -57,7 +57,7 @@ public class Dependent extends User {
 			
 			//Check for same parents
 			//change class type User to Dependent
-			if(hasSameParents( (Dependent)user2 )) {
+			if(hasSameParents( (Children)user2 )) {
 				System.out.println("\nCan not be friends. Both has same parents.");
 				return false;
 			};
@@ -80,7 +80,7 @@ public class Dependent extends User {
 	 * @param user2:Dependent
 	 * @return boolean
 	 * */
-	private boolean hasSameParents(Dependent user2) {
+	private boolean hasSameParents(Children user2) {
 		List<User> parents = FriendshipService.getParents(this);
 		List<User> user2Parents = FriendshipService.getParents(user2);
 		

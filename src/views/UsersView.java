@@ -7,7 +7,7 @@ import java.util.Scanner;
 import Services.FriendshipService;
 import Services.UserService;
 import models.Adult;
-import models.Dependent;
+import models.Children;
 import models.Friendship;
 import models.Profile;
 import models.User;
@@ -163,9 +163,9 @@ public class UsersView {
 		}
 		
 		List<User> users = new ArrayList<User>();
-		if(user instanceof Dependent) {
+		if(user instanceof Children) {
 			System.out.println("\n Parents: ");
-			users = FriendshipService.getParents((Dependent) user);
+			users = FriendshipService.getParents((Children) user);
 		} else {
 			System.out.println("\n Children: ");
 			users = FriendshipService.getChildrens((Adult) user);
