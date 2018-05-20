@@ -21,11 +21,10 @@ public class Profile {
 	private String _status;
 	private String _picUrl;
 	private String _state;
-	private ProfileRepository profileRepository;
+	private ProfileRepository profileRepository = new ProfileRepository();
 	
 	public Profile(User user) {
 		this._user = user;
-		profileRepository = new ProfileRepository();
 	}
 	
 	public Profile(User user, String firstname, String lastname,
@@ -35,6 +34,7 @@ public class Profile {
 		this._lastname = lastname;
 		this._age = age;
 		this._gender = gender;
+		this._status = status;
 		this._picUrl = picUrl;
 		this._state = state;
 	}
@@ -102,34 +102,17 @@ public class Profile {
 	}
 
 	public boolean create() {
-//		check unique key
 		return profileRepository.save(_user.get_username(), _firstname, _lastname, _age, _gender, 
 				_status, _picUrl, _state);
-//		if(isUniqUsername()) {
-//			ProfileData.write(_user.get_username(), new String[]{_firstname, _lastname, _gender, Double.toString(_age), _status, _picUrl});
-//			return true;
-//		} else {
-//			System.out.println("\nUser profile already created");
-//			return false;
-//		}
 	}
 	
 	public boolean update() {
-		ProfileData.write(_user.get_username(), new String[]{_firstname, _lastname, _gender, Double.toString(_age)});
-//		profileRepository.update();
+//		profileRepository.update(_user.get_username(), new String[]{_firstname, _lastname, _gender, Integer.toString(_age)});
 		return true;
 	}
 	
 	public boolean delete() {
-		ProfileData.remove(_user.get_username());
 //		profileRepository.delete();
 		return true;
-	}
-	
-	private boolean isUniqUsername() {
-		Map<String, ArrayList<String>> pfData = ProfileData.get();
-		ArrayList<String> value = pfData.get(_user.get_username());
-		
-		return value == null;
 	}
 }

@@ -15,21 +15,19 @@ public class Friendship {
 	private User _user1;
 	private User _user2;
 	private String _type;
-	private FriendShipRepository friendShipRepository;
+	private FriendShipRepository friendShipRepository = new FriendShipRepository();
 	
 	public Friendship (String id, User user1, User user2, String type) {
 		this._id = id;
 		this._user1 = user1;
 		this._user2 = user2;
 		this._type = type;
-		friendShipRepository = new FriendShipRepository();
 	}
 	
 	public Friendship (User user1, User user2, String type) {
 		this._user1 = user1;
 		this._user2 = user2;
 		this._type = type;
-		friendShipRepository = new FriendShipRepository();
 	}
 	
 	public String get_type() {

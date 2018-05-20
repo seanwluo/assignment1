@@ -22,14 +22,13 @@ public abstract class User {
 	private String _username;
 	private String _type;
 	private String _password;
-	private UserRepository userRepository;
+	private UserRepository userRepository = new UserRepository();;
 	/*
 	 * Constructor
 	 * @param username:String
 	 * */
 	public User(String username) {
 		this._username = username;
-		userRepository = new UserRepository();
 	}
 	
 	/*
@@ -39,14 +38,12 @@ public abstract class User {
 	public User(String username, String type) {
 		this._username = username;
 		this._type = type;
-		userRepository = new UserRepository();
 	}
 	
 	public User(String username, String password, String type) {
 		this._username = username;
 		this._password = password;
 		this._type = type;
-		userRepository = new UserRepository();
 	}
 	
 	/*

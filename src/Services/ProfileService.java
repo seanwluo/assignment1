@@ -34,7 +34,6 @@ public class ProfileService {
 				String firstname = result.getString("firstname");
 				String lastname = result.getString("lastname");
 				String gender = result.getString("gender");
-				// TO DO: Need to catch error
 				int age = result.getInt("age");
 				String status = result.getString("status");
 				String picUrl = result.getString("ulr");
@@ -44,7 +43,7 @@ public class ProfileService {
 			}
 		} catch(Exception e)
 		{
-			System.out.println("User not found");
+			System.out.println("Profile not found");
 		}
 		
 		return profile;

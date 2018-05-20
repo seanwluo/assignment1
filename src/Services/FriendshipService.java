@@ -147,8 +147,8 @@ public class FriendshipService {
 	 * @param dependent:Dependent
 	 * @return List<User>
 	 */
-	public static List<User> getParents(Children dependent) {
-		List<Friendship> allFriends = FriendshipService.findByUsername(dependent.get_username());	
+	public static List<User> getParents(Children children) {
+		List<Friendship> allFriends = FriendshipService.findByUsername(children.get_username());	
 		List<User> parents = new ArrayList<User>();
 		
 		for(Friendship frnd : allFriends) {

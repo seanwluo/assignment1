@@ -22,9 +22,9 @@ public class ProfileRepository {
 	public boolean save(String username, String firstname, String lastname, 
 			int age, String gender, String status, String url, String state)
 	{	
-		String sql = "insert into friendships(user, firstname, lastname, age, gender, status, url, state) "
+		String sql = "insert into profiles(user, firstname, lastname, age, gender, status, picUrl, state) "
 				+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
-	
+		boolean execution;
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
 			prepStatement.setString(1, username);
@@ -36,33 +36,36 @@ public class ProfileRepository {
 			prepStatement.setString(7, url);
 			prepStatement.setString(8, state);	
 			
-			prepStatement.executeQuery();
+			execution = prepStatement.execute();
 			_dbConnection.commit();
 			prepStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
-			return false;
+			execution =  false;
 		}
 	
-		return true;
+		return execution;
 	}
 	
 	public ResultSet findByUser(String username)
 	{	
 		CachedRowSet rowset = null;
-		String sql = String.format("select * from friendships where user=%s;", username);
+		String sql = "select * from profiles where user=?";
+//		String sql = "select * from profiles";
 		
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
+			prepStatement.setString(1, username);
+			
 			ResultSet result = prepStatement.executeQuery();
 			rowset = new CachedRowSetImpl();
 			rowset.populate(result);
 			
-			prepStatement.close();
 			_dbConnection.commit();
+			prepStatement.close();
 			result.close();
 		} catch(SQLException e) {
+			e.printStackTrace();
 			System.out.println("Error in query result");
 		}
 		

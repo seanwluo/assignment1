@@ -15,28 +15,30 @@ public class UserRepository
 {	
 	private Connection _dbConnection;
 	
-	public UserRepository() {
+	public UserRepository()
+	{
 		_dbConnection = DBUtil.getConnection();
 	}
 	
-	public boolean save(String username, String password, String type) {
+	public boolean save(String username, String password, String type)
+	{
 		String sql = "insert into users(username, password, type) values (?, ?, ?)";
-		System.out.println(type);
+		boolean execution;
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
 			prepStatement.setString(1, username);
 			prepStatement.setString(2, password);
 			prepStatement.setString(3, type);
 			
-			prepStatement.execute();
+			execution = prepStatement.execute();
 			_dbConnection.commit();
 			prepStatement.close();
 		} catch (SQLException e) {
 //			e.printStackTrace();
-			return false;
+			execution = false;
 		}
 	
-		return true;
+		return execution;
 	}
 	
 	public ResultSet userList()
@@ -49,9 +51,9 @@ public class UserRepository
 			ResultSet result = prepStatement.executeQuery();
 			rowset = new CachedRowSetImpl();
 			rowset.populate(result);
-			
-			prepStatement.close();
+
 			_dbConnection.commit();
+			prepStatement.close();
 			result.close();
 		} catch(SQLException e) {
 			System.out.println("Error in query");
@@ -61,7 +63,8 @@ public class UserRepository
 		
 	}
 
-	public ResultSet findByUsername(String username) {
+	public ResultSet findByUsername(String username)
+	{
 		CachedRowSet rowset = null;
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement("select * from users where username = ?");
@@ -71,6 +74,7 @@ public class UserRepository
 			rowset = new CachedRowSetImpl();
 			rowset.populate(result);
 			
+			_dbConnection.commit();
 			prepStatement.close();
 			result.close();
 		} catch (Exception e) {

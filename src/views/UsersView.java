@@ -69,11 +69,11 @@ public class UsersView {
 		gender  = reader.nextLine();
 		System.out.print("\nEnter age:");
 		age = ageInput();
-		System.out.println("\nEnter status: " );
+		System.out.print("\nEnter status: " );
 		status = reader.nextLine();
-		System.out.println("\nEnter profile pic");
+		System.out.println("\nEnter profile pic: ");
 		picUrl = reader.nextLine();
-		System.out.println("\nEnter state");
+		System.out.println("\nEnter state: ");
 		state = reader.nextLine();
 		
 		if(choice.equals("1")) {
