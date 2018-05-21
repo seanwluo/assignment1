@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+   	  <Label layoutX="238.0" layoutY="21.0" text="MiniNet">
+   	           <font>
+            <Font size="42.0" />
+         </font>
+      </Label>
+      <Label layoutX="122.0" layoutY="144.0" text="Username" />
+      <Label layoutX="122.0" layoutY="225.0" text="Password" />
+      <TextField fx:id="usernameTxt" layoutX="235.0" layoutY="139.0" prefHeight="41.0" prefWidth="327.0" />
+      <PasswordField fx:id="passwordTxt" layoutX="233.0" layoutY="215.0" prefHeight="41.0" prefWidth="327.0" />
+      <Label fx:id="errorLbl" layoutX="234.0" layoutY="278.0" text="Username or Password is not matched" textFill="#e43333" visible="false" />
+      <Button fx:id="loginBtn" layoutX="358.0" layoutY="331.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="88.0" text="Sign In" />
+      <Button fx:id="signUpBtn" layoutX="489.0" layoutY="331.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="88.0" text="Sign Up" />
+   </children>
+</Pane>
