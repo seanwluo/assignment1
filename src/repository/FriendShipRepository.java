@@ -28,21 +28,24 @@ public class FriendShipRepository
 	public boolean save(String username1, String username2, String type)
 	{	
 		String sql = "insert into friendships(user1, user2, type) values (?, ?, ?)";
-		boolean execution;
+		int execution;
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
 			prepStatement.setString(1, username1);
 			prepStatement.setString(2, username2);
 			prepStatement.setString(3, type);
 			
-			execution = prepStatement.execute();
+			execution = prepStatement.executeUpdate();
 			_dbConnection.commit();
 			prepStatement.close();
 		} catch (SQLException e) {
-			execution = false;
+			execution = 0;
+		} catch(Exception e)
+		{
+			execution = 0;
 		}
 	
-		return execution;
+		return execution == 1;
 	}
 	
 	public ResultSet friendshipByUser(String username)

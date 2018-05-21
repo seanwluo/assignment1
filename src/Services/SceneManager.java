@@ -21,8 +21,8 @@ public class SceneManager {
 	   * Callback method invoked to notify that a user has been authenticated.
 	   * Will show the main application screen.
 	   */ 
-	  public void authenticated() {
-	    showMainView();
+	  public void authenticated(User user) {
+	    showMainView(user);
 	  }
 
 	  /**
@@ -47,12 +47,14 @@ public class SceneManager {
 	    }
 	  }
 
-	 private void showMainView() {
+	 private void showMainView(User user) {
 	    try {
 	      FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MainView.fxml"));
 	      scene.setRoot((Parent) loader.load());
 	      MainViewController controller = loader.<MainViewController>getController();
-	      controller.setProfile();
+	      System.out.println(user);
+	      System.out.println(user.get_profile());
+	      controller.setProfile(user.get_profile());
 	      controller.LogOutManager(this);
 	    } catch (IOException e) {
 //	      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,6 +71,6 @@ public class SceneManager {
 		     controller.signUpManager(this);
 		 } catch (IOException e) {
 			 
-		 }//loading part
+		 }
 	 }
 }

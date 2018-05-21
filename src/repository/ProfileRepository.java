@@ -22,9 +22,8 @@ public class ProfileRepository {
 	public boolean save(String username, String firstname, String lastname, 
 			int age, String gender, String status, String url, String state)
 	{	
-		String sql = "insert into profiles(user, firstname, lastname, age, gender, status, picUrl, state) "
-				+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
-		boolean execution;
+		String sql = "insert into profiles(user, firstname, lastname, age, gender, status, picUrl, state) values (?, ?, ?, ?, ?, ?, ?, ?)";
+		int execution;
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
 			prepStatement.setString(1, username);
@@ -36,15 +35,18 @@ public class ProfileRepository {
 			prepStatement.setString(7, url);
 			prepStatement.setString(8, state);	
 			
-			execution = prepStatement.execute();
+			execution = prepStatement.executeUpdate();
 			_dbConnection.commit();
 			prepStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			execution =  false;
+			execution =  0;
+		} catch(Exception e)
+		{	e.printStackTrace();
+			execution = 0;
 		}
 	
-		return execution;
+		return execution == 1;
 	}
 	
 	public ResultSet findByUser(String username)
@@ -71,5 +73,27 @@ public class ProfileRepository {
 		
 		return rowset;
 		
+	}
+
+	public ResultSet all() {
+		CachedRowSet rowset = null;
+		String sql = "select * from profiles";
+		
+		try {
+			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
+			
+			ResultSet result = prepStatement.executeQuery();
+			rowset = new CachedRowSetImpl();
+			rowset.populate(result);
+			
+			_dbConnection.commit();
+			prepStatement.close();
+			result.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error in query result");
+		}
+		
+		return rowset;
 	}
 }

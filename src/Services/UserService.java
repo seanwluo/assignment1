@@ -90,18 +90,16 @@ public class UserService {
 	 *        age:double, status:String, picUrl:String
 	 * @return 
 	 * */
-	public static void createAdult(String username, String firstname, String lastname, String gender, int age,
-			String status, String picUrl, String state) {
+	public static boolean createAdult(String username) {
 	
 		User user = new Adult(username, "password");
 		
 		if(user.create()) {
-			boolean isProfileCreated = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl, state);
-			if(isProfileCreated) {
-				System.out.println("\nUser Created Sucessfully");
-			}
+			System.out.println("\nUser Created Sucessfully");
+			return true;
 		} else {
 			System.out.println("\nError! Account not created.");
+			return false;
 		}
 	}
 	

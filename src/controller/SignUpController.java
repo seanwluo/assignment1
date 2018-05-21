@@ -14,11 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import models.User;
 
-/**
- * 
- * @author sean
- *
- */
 public class SignUpController {
 	@FXML private TextField usernameTxt;
 	@FXML private TextField fnameTxt;
@@ -67,13 +62,13 @@ public class SignUpController {
 					String status = statusTxt.getText();
 					String state = stateTxt.getText();
 					
-					UserService.createAdult(username, firstname, lastname, gender, age, status, picUrl);
+					boolean createUser = UserService.createAdult(username);
 					User user = UserService.findByUsername(username);
-					if(user != null)
+					if(createUser)
 					{	
-						boolean createProfile = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl);
+						boolean createProfile = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl, state);
 						if(createProfile) {
-							loginService.authenticated();
+							loginService.authenticated(UserService.findByUsername(username));
 						} else {
 							Alert alert = new Alert(AlertType.ERROR, "Something went wrong. Profile not created.");
 							alert.show();

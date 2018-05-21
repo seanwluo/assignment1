@@ -22,7 +22,7 @@ public abstract class User {
 	private String _username;
 	private String _type;
 	private String _password;
-	private UserRepository userRepository = new UserRepository();;
+	private UserRepository userRepository = new UserRepository();
 	/*
 	 * Constructor
 	 * @param username:String
@@ -35,9 +35,9 @@ public abstract class User {
 	 * Constructor
 	 * @param username:String, type:String
 	 * */
-	public User(String username, String type) {
+	public User(String username, String password) {
 		this._username = username;
-		this._type = type;
+		this._password = password;
 	}
 	
 	public User(String username, String password, String type) {
@@ -63,6 +63,14 @@ public abstract class User {
 
 	public void set_username(String _username) {
 		this._username = _username;
+	}
+	
+	public String get_password() {
+		return _password;
+	}
+
+	public void set_password(String password) {
+		this._password = password;
 	}
 	
 	public String getType() {
@@ -132,7 +140,7 @@ public abstract class User {
 	public boolean create() {
 		return userRepository.save(_username, _password, _type);
 	}
-	
+
 //	public boolean update() {
 //		return userRepository.update(_username, _password, _type);
 //	}

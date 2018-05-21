@@ -1,9 +1,15 @@
 package Services;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import models.Adult;
+import models.Children;
 import models.Profile;
 import models.User;
 import repository.ProfileRepository;
+import repository.UserRepository;
 
 /**
  * @author Raj
@@ -12,6 +18,31 @@ import repository.ProfileRepository;
  *   
  */
 public class ProfileService {
+	public static List<Profile> list() {
+		ProfileRepository profileRepository = new ProfileRepository();
+		Profile profile = null;
+		ResultSet result = profileRepository.all();
+		
+		if (result == null) {
+			return null;
+		}
+		
+		try {
+			User user;
+			while (result.next()) {
+				String username = result.getString("user");
+				String firstname = result.getString("firstname");
+				
+				System.out.println(firstname);
+			}
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
 	/*
 	 *  Get Profile of given user object
 	 *  @param user:User
@@ -60,7 +91,6 @@ public class ProfileService {
 		Profile pf = new Profile(user, firstname, lastname, age, gender, status, picUrl, state);
 		if(pf.create()) {
 			System.out.println("\n User profile created Sucessfully");
-			System.out.println(pf);
 			return true;
 		} else {
 			System.out.println("\n User profile not created.");

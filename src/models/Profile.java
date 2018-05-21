@@ -55,7 +55,7 @@ public class Profile {
 		this._lastname = _lastname;
 	}
 
-	public double get_age() {
+	public int get_age() {
 		return _age;
 	}
 

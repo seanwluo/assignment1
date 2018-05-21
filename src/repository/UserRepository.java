@@ -21,24 +21,28 @@ public class UserRepository
 	}
 	
 	public boolean save(String username, String password, String type)
-	{
+	{	
 		String sql = "insert into users(username, password, type) values (?, ?, ?)";
-		boolean execution;
+		int execution;
+		
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
 			prepStatement.setString(1, username);
 			prepStatement.setString(2, password);
 			prepStatement.setString(3, type);
 			
-			execution = prepStatement.execute();
+			execution = prepStatement.executeUpdate();
 			_dbConnection.commit();
 			prepStatement.close();
 		} catch (SQLException e) {
-//			e.printStackTrace();
-			execution = false;
+			e.printStackTrace();
+			execution = 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+			execution = 0;
 		}
 	
-		return execution;
+		return execution == 1;
 	}
 	
 	public ResultSet userList()
@@ -56,6 +60,7 @@ public class UserRepository
 			prepStatement.close();
 			result.close();
 		} catch(SQLException e) {
+			e.printStackTrace();
 			System.out.println("Error in query");
 		}
 		
@@ -78,9 +83,10 @@ public class UserRepository
 			prepStatement.close();
 			result.close();
 		} catch (Exception e) {
-			System.out.println("Error in query");
+			e.printStackTrace();
+			System.out.println("Error in get by user query");
 		}
 		
-		return rowset;		
+		return rowset;
 	}
 }

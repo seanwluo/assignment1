@@ -12,7 +12,7 @@ import models.User;
 
 /**
  * 
- * @author sean
+ * @author Owner
  * 
  * Controllers for login screen
  */
@@ -23,9 +23,6 @@ public class LoginController {
 	@FXML private Button loginBtn;
 	@FXML private Button signUpBtn;
 	
-	
-	//handling diffeent event
-	
 	public void initialize() {}
 	  
 	public void loginManager(SceneManager loginService)
@@ -35,12 +32,11 @@ public class LoginController {
 		  @Override public void handle(ActionEvent event)
 		  {
 			  User user = authorize();
-//			  if (user != null) {
-//				  loginService.authenticated(user);
-//			  } else {
-//				  errorLbl.setVisible(true);
-//			  }
-			  loginService.authenticated();
+			  if (user != null) {
+				  loginService.authenticated(user);
+			  } else {
+				  errorLbl.setVisible(true);
+			  }
 		  }
 	  }); 
 	}
@@ -70,7 +66,7 @@ public class LoginController {
 			return null;
 		}
 		
-		if(passwordTxt.getText().equals("password"))
+		if(user.get_password().equals(passwordTxt.getText()))
 		{
 			return user;
 		} else {

@@ -3,6 +3,8 @@ package main;
 import java.sql.SQLException;
 
 import Services.SceneManager;
+import db.DBUtil;
+import db.HSQLServer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -12,16 +14,27 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- * @author Raj
+ * @author 
  * 
  * The MiniNet class execute the program
  */
 public class MiniNet  extends Application
 {	
+	private static HSQLServer hsqlServer;
 	/*
 	 * Program main method to run
 	 * */
 	public static void main(String[] args) throws SQLException {
+		Thread thread = new Thread(){
+		    public void run(){
+				hsqlServer = new HSQLServer();
+				hsqlServer.start();
+		    }
+		  };
+		  
+		thread.start();
+		DBUtil dbUtil = new DBUtil();
+		dbUtil.connect();
 		
         Application.launch(args);
 	}

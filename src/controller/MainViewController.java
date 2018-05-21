@@ -11,11 +11,6 @@ import javafx.scene.image.ImageView;
 import models.Profile;
 import models.User;
 
-/**
- * 
- * @author sean
- *
- */
 public class MainViewController {
 	@FXML private Button logOutBtn;
 	@FXML private ImageView profileImg;
@@ -48,16 +43,14 @@ public class MainViewController {
 		
 	}
 	
-	public void setProfile()
-	{	
-//		TODO: load from profile
-//		profileImg.setImage(new Image("img/default_user.png"));
-//		String name = profile.get_firstname() + " " + profile.get_lastname();
-		String name = "Sean Luo";
+	public void setProfile(Profile profile)
+	{
+		profileImg.setImage(new Image("file:img/default_user.png", true));
+		String name = profile.get_firstname() + " " + profile.get_lastname();
 		nameLbl.setText(name);
-		genderLbl.setText("Male");
-		ageLbl.setText("26");
-		stateLbl.setText("VIC");
-		statusLbl.setText("RMIT Student");
+		genderLbl.setText(profile.get_gender());
+		ageLbl.setText(Integer.toString(profile.get_age()));
+		stateLbl.setText(profile.get_state());
+		statusLbl.setText(profile.get_status());
 	}
 }

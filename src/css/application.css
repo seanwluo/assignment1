@@ -1,10 +1,10 @@
 
 .root {
     -fx-background-color:lightgray;
-};
+}
 
 #profilePane {
-	-fx-font: 12px;
+	-fx-font: 12px "Monospace";
 }
 
 .text-input.error {
@@ -22,7 +22,7 @@
     -fx-background-radius: 3, 2, 4, 0;
     -fx-prompt-text-fill: transparent;
 }
-/*
+
 .text-input {
     -fx-text-fill: -fx-text-inner-color;
     -fx-highlight-fill: derive(-fx-control-inner-background,-20%);
@@ -46,4 +46,4 @@
     -fx-background-insets: -0.2, 1, -1.4, 3;
     -fx-background-radius: 3, 2, 4, 0;
     -fx-prompt-text-fill: transparent;
-}*/
+}

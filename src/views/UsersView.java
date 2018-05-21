@@ -78,7 +78,7 @@ public class UsersView {
 		state = reader.nextLine();
 		
 		if(choice.equals("1")) {
-			UserService.createAdult(username, firstname, lastname, gender, age, status, picUrl, state);
+			UserService.createAdult(username);
 		} else {
 			System.out.println("\nEnter your parents username.");
 			System.out.println("\nEnter first parent username: ");
