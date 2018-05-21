@@ -39,7 +39,7 @@ public class SearchPerson extends Application{
 		pane.getChildren().add(tfMi);
 		pane.getChildren().add(back);*/
 		Scene scene = new Scene(pane, 700, 500);
-		primaryStage.setTitle("Showgridpane"); // Set the stage title
+		primaryStage.setTitle("MiniNet"); // Set the stage title
 		primaryStage.setScene(scene); // Place the scene in the stage
 		primaryStage.show();
 		

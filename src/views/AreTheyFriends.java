@@ -30,7 +30,7 @@ public class AreTheyFriends  extends Application{
 		pane.add(back,0,6);
 		
 		Scene scene = new Scene(pane, 700, 500);
-		primaryStage.setTitle("Mininet"); // Set the stage title
+		primaryStage.setTitle("MiniNet"); // Set the stage title
 		primaryStage.setScene(scene); // Place the scene in the stage
 		primaryStage.show();
 		

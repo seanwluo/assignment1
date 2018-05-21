@@ -31,7 +31,7 @@ public class UserNotExist extends Application {
 		vbox.getChildren().add(back);
 		
 		Scene scene=new Scene(vbox,700,500);
-		primaryStage.setTitle("Mininet");
+		primaryStage.setTitle("MiniNet");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		

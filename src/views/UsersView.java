@@ -50,6 +50,7 @@ public class UsersView {
 		
 		return user;
 	}
+	
  	
 	public void createUser() {
 		System.out.println("\n1. Normal");

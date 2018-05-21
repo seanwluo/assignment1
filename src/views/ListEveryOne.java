@@ -30,6 +30,7 @@ import javafx.collections.FXCollections;
 
 
 public class ListEveryOne extends Application{
+	
 	public void start(Stage primaryStage) {
 		VBox vbox=new VBox();
 		vbox.setSpacing(10);
@@ -58,7 +59,7 @@ public class ListEveryOne extends Application{
 			fin.start(primaryStage);
 		});
 		Scene scene=new Scene(vbox,700,500);
-		primaryStage.setTitle("Mininet");
+		primaryStage.setTitle("MiniNet");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		

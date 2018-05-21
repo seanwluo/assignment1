@@ -1,10 +1,14 @@
 package views;
 
+import java.util.List;
+
+import Services.UserService;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import models.User;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.scene.layout.VBox;
@@ -52,13 +56,14 @@ public class MainInterFace extends Application {
 		
 		
 		Scene scene=new Scene(vbox,700,500);
-		primaryStage.setTitle("Mininet");
+		primaryStage.setTitle("MiniNet");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
 		listall.setOnAction((ActionEvent e)->{
 			//UsersView usr = new UsersView();
 			//usr.listAllUser();
+		
 			ListEveryOne dis=new ListEveryOne();
 			dis.start(primaryStage);
 		});

@@ -40,7 +40,7 @@ public class SelectedUserViewGui  extends Application {
 		
 		
 		Scene scene=new Scene(vbox,700,500);
-		primaryStage.setTitle("Mininet");
+		primaryStage.setTitle("MiniNet");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		

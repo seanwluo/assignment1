@@ -16,9 +16,9 @@ public class AddNormal extends Application{
 		pane.setAlignment(Pos.CENTER);
 		Button back=new Button("back");
 		TextField name=new TextField();
-		TextField gender=new TextField();
-		TextField age=new TextField();
-		TextField status=new TextField();
+		TextField usergender=new TextField();
+		TextField userage=new TextField();
+		TextField userstatus=new TextField();
 		TextField profile=new TextField();
 		
 		pane.setPadding(new Insets(11, 12, 13, 14));	
@@ -28,9 +28,9 @@ public class AddNormal extends Application{
 		pane.add(new Label("input name"), 0, 1);
 		pane.add(name, 1, 1);
 		pane.add(new Label("input gender"), 0, 2);
-		pane.add(gender, 1 ,2);
+		pane.add(usergender, 1 ,2);
 		pane.add(new Label("input status"), 0, 3);
-		pane.add(status, 1, 3);
+		pane.add(userstatus, 1, 3);
 		pane.add((new Label("input profile")), 0, 4);
 		pane.add(profile, 1, 4);
 		pane.add(back, 1, 7);
@@ -40,6 +40,36 @@ public class AddNormal extends Application{
 		primaryStage.setTitle("MiniNet"); // Set the stage title
 		primaryStage.setScene(scene); // Place the scene in the stage
 		primaryStage.show();
+		
+		
+		 String username, firstname, lastname, gender, status, picUrl;
+		double age;
+		
+		/*name.setOnAction((ActionEvent e)->{
+			username=name.getText();		
+		});
+		usergender.setOnAction(e->{
+			gender=usergender.getText();
+		});
+		userstatus.setOnAction(e->{
+			status=userstatus.getText();
+		});
+		profile.setOnAction(e->{
+			picUrl=profile.getText();
+		});
+		userage.setOnAction(e->{
+			//age=Age.getText();
+		});
+		
+		//username=name.getText()*/
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		back.setOnAction((ActionEvent e)->{
 			NormalDependent ND=new NormalDependent();
