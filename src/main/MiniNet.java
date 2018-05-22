@@ -41,7 +41,7 @@ public class MiniNet  extends Application
 		dbUtil.connect();
 		
 //		TODO: load file only first time
-//		TransferFileToDB.run();
+		TransferFileToDB.run();
         Application.launch(args);
 	}
 
@@ -52,9 +52,9 @@ public class MiniNet  extends Application
 			scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
 
 		    SceneManager sceneManager = new SceneManager(scene);
-		    User user = UserService.findByUsername("rzkmr");
-//		    loginService.showLoginScreen();
-		    sceneManager.authenticated(user);
+//		    User user = UserService.findByUsername("rzkmr");
+		    sceneManager.showLoginScreen();
+//		    sceneManager.authenticated(user);
 		    
 		    
 		    primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

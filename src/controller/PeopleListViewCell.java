@@ -21,7 +21,7 @@ public class PeopleListViewCell extends ListCell<User>{
 	private HBox hbox = new HBox();
     private Label label = new Label("(empty)");
     private Pane pane = new Pane();
-    private Button frndBtn = new Button("Add");
+    private Button frndBtn = new Button("+");
     private User lastUser;
     private User loginUser;
     
@@ -47,15 +47,13 @@ public class PeopleListViewCell extends ListCell<User>{
             	
             	String frnship;
             	if(frnType == null) {
-            		Alert alert = new Alert(AlertType.ERROR, 
-            				"Select a relation");
+            		Alert alert = new Alert(AlertType.ERROR, "Select a relation");
 					alert.show();
 					return;
             	} else {
             		frnship = frnType.toString();
+                	processConnection(lastUser, frnship);
             	}
-            	
-            	processConnection(lastUser, frnship);
             }
         });
 	}
@@ -63,7 +61,7 @@ public class PeopleListViewCell extends ListCell<User>{
 	@Override
     protected void updateItem(User user, boolean empty) {
         super.updateItem(user, empty);
-        setText(null);  // No text in label of super class
+        setText(null);  // no text in the label of super class
         if (empty) {
             lastUser = null;
             setGraphic(null);
@@ -92,8 +90,10 @@ public class PeopleListViewCell extends ListCell<User>{
 //		returns String[reuslt, msg] e.g. ["error", "Could not connect"]
 		String[] result = loginUser.connect(user, frnType);
     	
-    	if(result[0].equals("sucess")) {
+    	if(result[0].equals("success")) {
     		updateItem(lastUser, true);
+    		Alert alert = new Alert(AlertType.INFORMATION, result[1]);
+			alert.show();
     	} else {
     		Alert alert = new Alert(AlertType.ERROR, result[1]);
 			alert.show();

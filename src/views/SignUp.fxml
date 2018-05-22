@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.RadioButton?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SignUpController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SignUpController">
    <top>
       <Label text="Create an Account" BorderPane.alignment="CENTER">
          <font>
@@ -18,42 +18,49 @@
       </Label>
    </top>
    <bottom>
-      <Pane prefHeight="425.0" prefWidth="724.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="530.0" prefWidth="724.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="usernameLbl" layoutX="64.0" layoutY="14.0" text="Username *" />
-            <TextField fx:id="usernameTxt" layoutX="65.0" layoutY="41.0" prefHeight="26.0" prefWidth="264.0" />
+            <Label fx:id="usernameLbl" layoutX="93.0" layoutY="14.0" text="Username *" />
+            <TextField fx:id="usernameTxt" layoutX="94.0" layoutY="41.0" prefHeight="26.0" prefWidth="264.0" />
             
-            <Label fx:id="fnameLbl" layoutX="63.0" layoutY="88.0" text="First name *" />
-            <TextField fx:id="fnameTxt" layoutX="63.0" layoutY="117.0" prefHeight="31.0" prefWidth="273.0" />
+            <Label fx:id="fnameLbl" layoutX="92.0" layoutY="88.0" text="First name *" />
+            <TextField fx:id="fnameTxt" layoutX="92.0" layoutY="117.0" prefHeight="31.0" prefWidth="273.0" />
             
-            <Label fx:id="lnameLbl" layoutX="417.0" layoutY="88.0" text="Last name *" />
-            <TextField fx:id="lnameTxt" layoutX="417.0" layoutY="117.0" prefHeight="31.0" prefWidth="244.0" />
+            <Label fx:id="lnameLbl" layoutX="446.0" layoutY="88.0" text="Last name *" />
+            <TextField fx:id="lnameTxt" layoutX="446.0" layoutY="117.0" prefHeight="31.0" prefWidth="244.0" />
             
-            <Label fx:id="genderLbl" layoutX="65.0" layoutY="175.0" text="Gender *" />	
-            <RadioButton fx:id="maleRadio" layoutX="158.0" layoutY="175.0" mnemonicParsing="false" userData="male" text="Male">
+            <Label fx:id="genderLbl" layoutX="94.0" layoutY="175.0" text="Gender *" />	
+            <RadioButton fx:id="maleRadio" layoutX="187.0" layoutY="175.0" mnemonicParsing="false" text="Male" userData="male">
                <toggleGroup>
                   <ToggleGroup fx:id="toggleGroup" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="femaleRadio" layoutX="233.0" layoutY="175.0" mnemonicParsing="false" text="Female" userData="female" toggleGroup="$toggleGroup" />
+            <RadioButton fx:id="femaleRadio" layoutX="262.0" layoutY="175.0" mnemonicParsing="false" text="Female" toggleGroup="$toggleGroup" userData="female" />
             
-            <Label layoutX="362.0" layoutY="175.0" text="Age *" />
-            <TextField fx:id="ageTxt" layoutX="416.0" layoutY="170.0" onKeyPressed="#CheckNumber" prefHeight="31.0" prefWidth="67.0" />
-            <Label layoutX="518.0" layoutY="175.0" text="State" />
-            <TextField fx:id="stateTxt" layoutX="577.0" layoutY="170.0" prefHeight="32.0" prefWidth="83.0" />
+            <Label layoutX="391.0" layoutY="175.0" text="Age *" />
+            <TextField fx:id="ageTxt" layoutX="445.0" layoutY="170.0" onKeyPressed="#CheckNumber" prefHeight="31.0" prefWidth="67.0" />
+            <Label layoutX="547.0" layoutY="175.0" text="State" />
+            <TextField fx:id="stateTxt" layoutX="606.0" layoutY="170.0" prefHeight="32.0" prefWidth="83.0" />
             
-            <Label layoutX="65.0" layoutY="230.0" text="Image Url" />
-            <TextField fx:id="urlTxt" layoutX="158.0" layoutY="225.0" prefHeight="31.0" prefWidth="505.0" />
+            <Label layoutX="95.0" layoutY="356.0" text="Image Url" />
+            <TextField fx:id="urlTxt" layoutX="188.0" layoutY="351.0" prefHeight="31.0" prefWidth="505.0" />
             
-            <Label layoutX="65.0" layoutY="284.0" text="Status" />
-            <TextField fx:id="statusTxt" layoutX="158.0" layoutY="279.0" prefHeight="31.0" prefWidth="503.0" />
+            <Label layoutX="95.0" layoutY="410.0" text="Status" />
+            <TextField fx:id="statusTxt" layoutX="188.0" layoutY="405.0" prefHeight="31.0" prefWidth="503.0" />
             
-            <Button fx:id="signUpBtn" layoutX="451.0" layoutY="335.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="106.0" text="SignUp" />
-            <Button fx:id="loginBtn" layoutX="591.0" layoutY="334.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="89.0" text="Login" />
-            <Label layoutX="61.0" layoutY="343.0" text="Note: * All required field" textFill="#2570bf">
+            <Button fx:id="signUpBtn" layoutX="481.0" layoutY="461.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="106.0" text="SignUp" />
+            <Button fx:id="loginBtn" layoutX="621.0" layoutY="460.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="89.0" text="Login" />
+            <Label layoutX="91.0" layoutY="469.0" text="Note: * All required field" textFill="#2570bf">
                <font>
                   <Font name="System Bold Italic" size="15.0" />
                </font>
             </Label>
+            <Label layoutX="98.0" layoutY="249.0" text="Father" />
+            <Label layoutX="447.0" layoutY="249.0" text="Mother" />
+            <TextField fx:id="parent1Txt" layoutX="98.0" layoutY="282.0" prefHeight="21.0" prefWidth="303.0" />
+            <TextField fx:id="parent2Txt" layoutX="447.0" layoutY="282.0" prefHeight="26.0" prefWidth="251.0" />
+            <Separator layoutX="26.0" layoutY="216.0" prefHeight="0.0" prefWidth="712.0" />
+            <Separator layoutX="37.0" layoutY="332.0" prefHeight="4.0" prefWidth="704.0" />
+            <Label layoutX="91.0" layoutY="219.0" text="Required for Children acount" textFill="#c94949" />
          </children>
       </Pane>
    </bottom>

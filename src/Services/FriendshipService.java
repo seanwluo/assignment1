@@ -49,13 +49,13 @@ public class FriendshipService {
 			return friendships;
 		}
 		
-		Friendship friendship = null;
+		Friendship friendship;
 		try {
 			while(result.next())
 			{	
 				Integer id = result.getInt("id");
 				String username1 = result.getString("username1");
-				String username2 = result.getString("username2");
+				String username2 = result.getString("username2");				
 				String type = result.getString("type");
 				
 				User user = UserService.findByUsername(username1);

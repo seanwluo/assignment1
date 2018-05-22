@@ -51,8 +51,7 @@ public class Friendship {
 		String username1 = _user1.get_username();
 		String username2 = _user2.get_username();
 		
-		friendShipRepository.save(username1, username2, _type);
-		return true;
+		return friendShipRepository.save(username1, username2, _type);
 	}
 	
 	/*

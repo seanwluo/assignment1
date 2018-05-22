@@ -15,24 +15,9 @@ import Store.UserData;
 public class Children extends User {
 	private final static String TYPE = "children";
 	
-	public Children(String username) {
-		super(username, TYPE);
+	public Children(String username, String password) {
+		super(username, password, TYPE);
 	}
-	
-	/*
-	 * Create Dependent user
-	 * @return boolean
-	 */
-//	@Override
-//	public boolean create() {
-//		if( !isUniqUsername() ) {
-//			System.out.println("\nUsername already exists.");
-//			return false;
-//		}
-//		
-//		UserData.write(this.get_username(), TYPE);
-//		return true;
-//	}
 
 	/*
 	 * Connect to another users
@@ -42,7 +27,7 @@ public class Children extends User {
 	@Override
 	public String[] connect(User user2, String frnType) {
 		boolean frnsExists = FriendshipService.existsFriendShip(this, user2);
-		
+		System.out.println("From Children");
 		if(frnsExists)
 		{
 			return new String[] {"error", "You are already connected"}; 

@@ -83,7 +83,7 @@ public class MainViewController {
 	private void allPeople(User user)
 	{
 		ObservableList<User> people = peopleLstVw.getItems();
-        List<User> users = UserService.allUser();
+        List<User> users = UserService.allUser(user.get_username());
         ObservableList<User> list = FXCollections.observableArrayList(users);
         people.addAll(list);
         peopleLstVw.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {

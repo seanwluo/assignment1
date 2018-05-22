@@ -22,7 +22,7 @@ public class UserService {
 	 * @param
 	 * @return List<User>
 	 * */
-	public static List<User> allUser() {
+	public static List<User> allUser(String currUser) {
 		UserRepository userRepo = new UserRepository();
 		ResultSet result = userRepo.userList();
 		List<User> users = new ArrayList<User>();
@@ -35,12 +35,17 @@ public class UserService {
 			User user;
 			while (result.next()) {
 				String username = result.getString("username");
+				if(currUser.equals(username)) {
+					continue;
+				}
+				
+				String password = result.getString("password");
 				String type = result.getString("type");
 				
-				if(type.equals("adult")) {
-					user = new Adult(username, "password");
+				if(type.toLowerCase().equals("adult")) {
+					user = new Adult(username, password);
 				} else {
-					user = new Children(username);
+					user = new Children(username, password);
 				}
 				users.add(user);
 			}
@@ -69,13 +74,15 @@ public class UserService {
 		try {
 			while (result.next()) {
 				String usrname = result.getString("username");
+				String password = result.getString("password");
 				String type = result.getString("type");
 				
-				if(type.equals("adult")) {
-					user = new Adult(usrname, "password");
+				if(type.toLowerCase().equals("adult")) {
+					user = new Adult(usrname, password);
 				} else {
-					user = new Children(username);
+					user = new Children(username, password);
 				}	
+				System.out.println(user);
 			}
 		} catch(Exception e) {
 			System.out.println("Error in query");
@@ -109,29 +116,24 @@ public class UserService {
 	 *        lastname:String,  gender:string, age:double, status:String, picUrl:String
 	 * @return 
 	 * */
-	public static void createDependent(String parentName_1, String parentName_2, String username, String firstname,
-			String lastname, String gender, int age, String status, String picUrl, String state) {
+	public static String[] createDependent(String parentName_1, String parentName_2, String username) {
 		User parent1 = UserService.findByUsername(parentName_1);
 		User parent2 = UserService.findByUsername(parentName_2);
 		
 		if(parent1 == null || parent2 == null) {
-			System.out.println("\nError! Account not created.");
-			System.out.println("\nBoth parents should have account.");
+			return new String[] {"error", "Both parents should have account."};
 		} else {
-			User user = new Children(username);
+			User user = new Children(username, "password");
 			
 			if(user.create()) {
-				boolean isProfileCreated = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl, state);
-				if(isProfileCreated == true ) {
-					System.out.println("User Created Sucessfully");
-				}
-				
 				//Create Default parent friendship connection
 				//No other can create parent-child connection 
-				FriendshipService.create(user, parent1, "parent-child");
-				FriendshipService.create(user, parent2, "parent-child");
+				FriendshipService.create(user, parent1, "parent");
+				FriendshipService.create(user, parent2, "parent");
+
+				return new String[] {"error", "Account created."};
 			} else {
-				System.out.println("\nError! Account not created.");
+				return new String[] {"error", "Could not create account."};
 			}
 		}
 		

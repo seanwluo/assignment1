@@ -129,10 +129,10 @@ public class TransferFileToDB {
 	{	
 		String type;
 		
-		if(age > 16) {
-			type = "Adult";
+		if(age >= 16) {
+			type = "adult";
 		} else {
-			type = "Children";
+			type = "children";
 		}
 		
 		return type;

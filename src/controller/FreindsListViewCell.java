@@ -18,7 +18,7 @@ public class FreindsListViewCell extends ListCell<Friendship>{
 	private HBox hbox = new HBox();
     private Label label = new Label("(empty)");
     private Pane pane = new Pane();
-    private Button frndBtn = new Button("Remove");
+    private Button frndBtn = new Button("X");
     private Friendship lastFrnship;
     private User loginUser;
     

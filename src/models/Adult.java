@@ -16,23 +16,6 @@ public class Adult extends User {
 	public Adult(String username, String password) {
 		super(username, password, TYPE);
 	}
-	
-	/*
-	 * Create Adult user
-	 * @return boolean
-	 */
-//	@Override
-//	public boolean create() {
-//		//Check username is already exists into the system
-//		if(!isUniqUsername()) {
-//			System.out.println("\nUsername already exists.");
-//			return false;
-//		}
-//		
-//		UserData.write(this.get_username(), TYPE);
-//		
-//		return true;
-//	}
 
 	/*
 	 * Connect to another Adult users only
@@ -41,6 +24,7 @@ public class Adult extends User {
 	 */
 	@Override
 	public String[] connect(User user2, String frnType) {
+		System.out.println("From Adult");
 		String[] callback;
 		
 		boolean frnsExists = FriendshipService.existsFriendShip(this, user2);

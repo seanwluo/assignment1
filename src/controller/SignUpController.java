@@ -25,6 +25,8 @@ public class SignUpController {
 	@FXML private TextField urlTxt;
 	@FXML private TextField statusTxt;
 	@FXML private TextField stateTxt;
+	@FXML private TextField parent1Txt;
+	@FXML private TextField parent2Txt;
 	@FXML private Button loginBtn;
 	@FXML private Button signUpBtn;
 	
@@ -45,39 +47,52 @@ public class SignUpController {
 		signUpBtn.setOnAction(new EventHandler<ActionEvent>()
 		{
 			@Override public void handle(ActionEvent event)
-			{
-				if (allValid())
-				{	String username = usernameTxt.getText();
-					String firstname = fnameTxt.getText();
-					String lastname = lnameTxt.getText();
-					String gender = null;
-					if (toggleGroup.getSelectedToggle() != null) {
+			{	
+				if (!allValid()) {
+					return;
+				}
+			
+				String username = usernameTxt.getText();
+				String firstname = fnameTxt.getText();
+				String lastname = lnameTxt.getText();
+				String gender = null;
+				if (toggleGroup.getSelectedToggle() != null) {
 
-						gender = toggleGroup.getSelectedToggle().getUserData().toString();
+					gender = toggleGroup.getSelectedToggle().getUserData().toString();
 
-			         }
-					
-					int age = Integer.parseInt(ageTxt.getText());
-					String picUrl = urlTxt.getText();
-					String status = statusTxt.getText();
-					String state = stateTxt.getText();
-					
-					boolean createUser = UserService.createAdult(username);
-					User user = UserService.findByUsername(username);
-					if(createUser)
-					{	
-						boolean createProfile = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl, state);
-						if(createProfile) {
-							loginService.authenticated(UserService.findByUsername(username));
-						} else {
-							Alert alert = new Alert(AlertType.ERROR, "Something went wrong. Profile not created.");
-							alert.show();
-						}
-					} else {
-						Alert alert = new Alert(AlertType.ERROR, "Something went wrong. Account not created.");
-						alert.show();
+		         }
+				
+				int age = Integer.parseInt(ageTxt.getText());
+				String picUrl = urlTxt.getText();
+				String status = statusTxt.getText();
+				String state = stateTxt.getText();
+				boolean createUser = false;
+				
+				if(age >= 16) {
+					createUser = UserService.createAdult(username);
+				} else {
+					createUser = createChildren(username);
+					if(!createUser) {
+						return; //To show pop error message
 					}
 				}
+				
+				
+				if(createUser)
+				{	
+					User user = UserService.findByUsername(username);
+					boolean createProfile = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl, state);
+					if(createProfile) {
+						loginService.authenticated(UserService.findByUsername(username));
+					} else {
+						Alert alert = new Alert(AlertType.ERROR, "Something went wrong. Profile not created.");
+						alert.show();
+					}
+				} else {
+					Alert alert = new Alert(AlertType.ERROR, "Something went wrong. Account not created.");
+					alert.show();
+				}
+				
 			}
 		});
 		
@@ -91,6 +106,29 @@ public class SignUpController {
 		}catch (Exception e) {
 			ageTxt.getStyleClass().add("error");
 		}
+	}
+	
+	private boolean createChildren(String username)
+	{	
+		boolean createUser = false;
+		if(checkEmpty(parent1Txt) && checkEmpty(parent2Txt))
+		{
+			createUser = false;
+			Alert alert = new Alert(AlertType.ERROR, "Add parents");
+			alert.show();
+		}
+		else{
+			String[] result = UserService.createDependent(parent1Txt.getText(), parent2Txt.getText(), username);
+			if(result.equals("error"))
+			{	
+				createUser = false;
+				Alert alert = new Alert(AlertType.ERROR, result[1]);
+				alert.show();
+			} else {
+				createUser = true;
+			}
+		}
+		return createUser;
 	}
 	
 	private boolean allValid()
