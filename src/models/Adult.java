@@ -1,5 +1,9 @@
 package models;
 
+import Exception.AlreadyConnectedException;
+import Exception.NoAccountCreatedException;
+import Exception.NoSuchAgeException;
+import Services.FriendshipService;
 import Store.UserData;
 
 /**
@@ -10,27 +14,10 @@ import Store.UserData;
  * 
  */
 public class Adult extends User {
-	private final static String TYPE = "Adult";	
+	private final static String TYPE = "adult";	
 	
-	public Adult(String username) {
-		super(username, TYPE);
-	}
-
-	/*
-	 * Create Adult user
-	 * @return boolean
-	 */
-	@Override
-	public boolean create() {
-		//Check username is already exists into the system
-		if(!isUniqUsername()) {
-			System.out.println("\nUsername already exists.");
-			return false;
-		}
-		
-		UserData.write(this.get_username(), TYPE);
-		
-		return true;
+	public Adult(String username, String password) {
+		super(username, password, TYPE);
 	}
 
 	/*
@@ -39,13 +26,27 @@ public class Adult extends User {
 	 * @return boolean
 	 */
 	@Override
-	public boolean connect(User user2) {
-		if(user2 instanceof Adult) {
-			Friendship frsd = new Friendship(this, user2, "Friend");
-			frsd.create();
-			return true;
+	public String[] connect(User user2, String frnType) throws Exception {
+		System.out.println("From Adult");
+		String[] callback;
+		
+		boolean frnsExists = FriendshipService.existsFriendShip(this, user2);
+		if(frnsExists)
+		{
+			throw new AlreadyConnectedException("You are already connected");
+		}		
+		
+		if(user2 instanceof Children) {
+			throw new NoSuchAgeException("Under age to have other friends");
 		}
 		
-		return false;
+		Friendship frsd = new Friendship(this, user2, frnType);
+		if(frsd.create()) {
+			callback = new String[] {"success", "Sucessfully connected"};
+		} else {
+
+			throw new NoAccountCreatedException("Freindhsip not created.");
+		}
+		return callback;
 	}
 }

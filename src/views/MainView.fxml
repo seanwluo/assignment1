@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainViewController">
+   <top>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+          <Button fx:id="logOutBtn" mnemonicParsing="false" text="LogOut" />
+        </items>
+      </ToolBar>
+   </top>
+   <center>
+      <TabPane fx:id="tabPane" prefHeight="300.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="profileTab" text="Profile">
+               <content>
+                  <Pane id="profilePane" prefHeight="300.0" prefWidth="400.0">
+                     <children>
+                        <ImageView fx:id="profileImg" fitHeight="150.0" fitWidth="200.0" layoutX="26.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/default_user.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="243.0" layoutY="49.0" text="Name:" />
+                        <Label fx:id="nameLbl" layoutX="326.0" layoutY="49.0" text="Raj Stha" />
+                        <Label layoutX="243.0" layoutY="96.0" text="Gender:" />
+                        <Label fx:id="genderLbl" layoutX="326.0" layoutY="96.0" text="Male" />
+                        <Label layoutX="402.0" layoutY="96.0" text="Age:" />
+                        <Label fx:id="ageLbl" layoutX="459.0" layoutY="96.0" text="26" />
+                        <Label layoutX="243.0" layoutY="148.0" text="State:" />
+                        <Label fx:id="stateLbl" layoutX="326.0" layoutY="148.0" text="VIC" />
+                        <Label layoutX="243.0" layoutY="197.0" prefHeight="22.0" prefWidth="54.0" text="Status:" />
+                        <Label fx:id="statusLbl" layoutX="330.0" layoutY="198.0" text="Label" />
+                     </children>
+                  </Pane>
+               </content>
+          </Tab>
+            <Tab fx:id="friendsTab" text="Connected people">
+               <content>
+                  <Pane prefHeight="400.0" prefWidth="700.0">
+                     <children>
+                        <ListView fx:id="freindLstVw" cacheShape="false" layoutX="29.0" layoutY="40.0" prefHeight="286.0" prefWidth="673.0">
+                           <effect>
+                              <Blend mode="MULTIPLY" />
+                           </effect></ListView>
+                     </children>
+                  </Pane>
+               </content>
+            </Tab>
+          <Tab fx:id="peopleTab" text="People in Mininet">
+               <content>
+                  <Pane prefHeight="400.0" prefWidth="700.0 ">
+                     <children>
+                        <ListView fx:id="peopleLstVw" layoutX="31.0" layoutY="26.0" prefHeight="304.0" prefWidth="663.0" />
+                     </children></Pane>
+               </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>

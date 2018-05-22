@@ -1,16 +1,18 @@
 package Services;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import Exception.NoAvailableException;
 import Store.FriendshipData;
-import Store.UserData;
 import models.Adult;
-import models.Dependent;
+import models.Children;
 import models.Friendship;
 import models.User;
+import repository.FriendShipRepository;
 
 /**
  * @author Raj
@@ -23,42 +25,14 @@ import models.User;
 public class FriendshipService {
 	
 	/*
-	 * List all friendship form data to Friendship object
-	 * @param
-	 * @return List<Friendship>
-	 * */
-	public static List<Friendship> allFriendship() {
-		List<Friendship> friendships = new ArrayList<Friendship>();
-		Map<String, ArrayList<String>> data = FriendshipData.get();
-		
-		for (Entry<String, ArrayList<String>> entry : data.entrySet()) {
-			ArrayList<String> value = entry.getValue();
-			String username1 = value.get(0);
-			String username2 = value.get(1);
-			String type = value.get(2);
-			
-			//Find user and get user object
-			User user1 = UserService.findByUsername(username1);
-			User user2 = UserService.findByUsername(username2);
-			
-			//check both users exists
-			if(user1 != null && user2 != null) {
-				Friendship friendship = new Friendship(entry.getKey().toString(), user1, user2, type);
-				friendships.add(friendship);
-			}
-		}
-	
-		return friendships;
-	}
-	
-	/*
 	 * Creates Friendship connection between two users with given type
 	 * @param user1:User, user2:User, type:String
 	 * @return
 	 */
-	public static void create(User user1, User user2, String type) {
+	public static boolean create(User user1, User user2, String type) {
+		
 		Friendship frns = new Friendship(user1, user2, type);
-		frns.create();
+		return frns.create();
 	}
 	
 	/*
@@ -67,27 +41,34 @@ public class FriendshipService {
 	 * @return List<Friendship>
 	 */
  	public static List<Friendship> findByUsername(String username) {
+ 		FriendShipRepository frndshipRepository = new FriendShipRepository();
+		ResultSet result = frndshipRepository.friendshipByUser(username);
 		List<Friendship> friendships = new ArrayList<Friendship>();
-		Map<String, ArrayList<String>> data = FriendshipData.get();
 		
-		for (Entry<String, ArrayList<String>> entry : data.entrySet()) {
-			ArrayList<String> value = entry.getValue();
-			String username1 = value.get(0);
-			String username2 = value.get(1);
-			String type = value.get(2);
-
-			if(username.equals(username1) || username.equals(username2)) {
-				
-				User user1 = UserService.findByUsername(username1);
-				User user2 = UserService.findByUsername(username2);
-				
-				if(user1 != null && user2 != null) {
-					Friendship friendship = new Friendship(entry.getKey().toString(), user1, user2, type);
-					friendships.add(friendship);
-				}
-			}
+		if(result == null)
+		{
+			return friendships;
 		}
 		
+		Friendship friendship;
+		try {
+			while(result.next())
+			{	
+				Integer id = result.getInt("id");
+				String username1 = result.getString("username1");
+				String username2 = result.getString("username2");				
+				String type = result.getString("type");
+				
+				User user = UserService.findByUsername(username1);
+				User user2 = UserService.findByUsername(username2);
+				friendship = new Friendship(id, user, user2, type);
+				friendships.add(friendship);
+			}
+		} catch(Exception  e)
+		{
+			System.out.println("Error in query");
+		}
+	
 		return friendships;
 	}
 	
@@ -97,32 +78,34 @@ public class FriendshipService {
 	 * @param type:String
 	 * @return List<Friendship>
 	 */
-	public static List<Friendship> findByType(String type) {
+	public static List<Friendship> findByType(String type) throws NoAvailableException {
+		FriendShipRepository frndshipRepository = new FriendShipRepository();
+		ResultSet result = frndshipRepository.friendshipByType(type);
 		List<Friendship> friendships = new ArrayList<Friendship>();
-		Map<String, ArrayList<String>> data = FriendshipData.get();
 		
-		for (Entry<String, ArrayList<String>> entry : data.entrySet()) {
-			ArrayList<String> value = entry.getValue();
-			
-			if(value == null) {
-				continue;
-			}
-			
-			String username1 = value.get(0);
-			String username2 = value.get(1);
-			String _type = value.get(2);
-			
-			if(_type.toLowerCase().equals( type.toLowerCase() )) {
-				User user1 = UserService.findByUsername(username1);
-				User user2 = UserService.findByUsername(username2);
-				
-				if(user1 != null && user2 != null) {
-					Friendship friendship = new Friendship(entry.getKey().toString(), user1, user2, type);
-					friendships.add(friendship);
-				}
-			}
+		if(result == null)
+		{
+			throw new NoAvailableException("Relation Not found");
 		}
 		
+		Friendship friendship = null;
+		try {
+			while(result.next())
+			{
+				String username1 = result.getString("username1");
+				String username2 = result.getString("username2");
+				String type1 = result.getString("type");
+				
+				User user = UserService.findByUsername(username1);
+				User user2 = UserService.findByUsername(username2);
+				friendship = new Friendship(user, user2, type1);
+				friendships.add(friendship);
+			}
+		} catch(Exception  e)
+		{
+			System.out.println("Error in query");
+		}
+	
 		return friendships;
 	}
 	
@@ -131,8 +114,8 @@ public class FriendshipService {
 	 * @param dependent:Dependent
 	 * @return List<User>
 	 */
-	public static List<User> getParents(Dependent dependent) {
-		List<Friendship> allFriends = FriendshipService.findByUsername(dependent.get_username());	
+	public static List<User> getParents(Children children) {
+		List<Friendship> allFriends = FriendshipService.findByUsername(children.get_username());	
 		List<User> parents = new ArrayList<User>();
 		
 		for(Friendship frnd : allFriends) {
@@ -161,9 +144,9 @@ public class FriendshipService {
 		for(Friendship frnd : allFriends) {
 			User[] users = frnd.getUsers();
 			// If user is Dependent then store
-			if(users[0] instanceof Dependent) {
+			if(users[0] instanceof Children) {
 				childrens.add(users[0]);
-			} else if(users[1] instanceof Dependent) {
+			} else if(users[1] instanceof Children) {
 				childrens.add(users[1]);
 			}
 		}
@@ -177,7 +160,7 @@ public class FriendshipService {
 	 * @param user1:String, user2:String
 	 * @return Friendship
 	 */
-	public static Friendship findDirectConnection(String user1, String user2) {
+	public static Friendship findDirectConnection(String user1, String user2) throws NoAvailableException {
 		Map<String, ArrayList<String>> data = FriendshipData.get();
 		
 		for (Entry<String, ArrayList<String>> entry : data.entrySet()) {
@@ -192,13 +175,27 @@ public class FriendshipService {
 				User usr2 = UserService.findByUsername(username2);
 				
 				if(user1 != null && user2 != null) {
-					Friendship friendship = new Friendship(entry.getKey().toString(), usr1, usr2, type);
+					Friendship friendship = new Friendship(usr1, usr2, type);
 					return friendship;
+				} else {
+					throw new NoAvailableException("Friendship not found");
 				}
 			}
 		}
 		
 		return null;
+	}
+
+	public static boolean existsFriendShip(User user1, User user2) {
+		List<User> users = user1.getFriends();
+		for(User user: users)
+		{
+			if(user.get_username().equals(user2.get_username()))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

@@ -7,9 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import Exception.AlreadyConnectedException;
+import Exception.NoAvailableException;
+import Exception.NoSuchAgeException;
 import Services.FriendshipService;
 import Services.ProfileService;
 import Store.UserData;
+import repository.UserRepository;
 
 /**
  * @author Luo
@@ -20,7 +24,8 @@ import Store.UserData;
 public abstract class User {
 	private String _username;
 	private String _type;
-	
+	private String _password;
+	private UserRepository userRepository = new UserRepository();
 	/*
 	 * Constructor
 	 * @param username:String
@@ -33,8 +38,14 @@ public abstract class User {
 	 * Constructor
 	 * @param username:String, type:String
 	 * */
-	public User(String username, String type) {
+	public User(String username, String password) {
 		this._username = username;
+		this._password = password;
+	}
+	
+	public User(String username, String password, String type) {
+		this._username = username;
+		this._password = password;
 		this._type = type;
 	}
 	
@@ -57,6 +68,14 @@ public abstract class User {
 		this._username = _username;
 	}
 	
+	public String get_password() {
+		return _password;
+	}
+
+	public void set_password(String password) {
+		this._password = password;
+	}
+	
 	public String getType() {
 		return _type;
 	}
@@ -73,7 +92,7 @@ public abstract class User {
 	 *  Get profile of current user
 	 *  @return Profile
 	 */
-	public Profile get_profile() {
+	public Profile get_profile() throws NoAvailableException {
 		return  ProfileService.getByUser(this);
 	};
 	
@@ -81,7 +100,7 @@ public abstract class User {
 	 * Delete current user related all the data from store
 	 * @return boolean
 	 */
-	public boolean delete() {
+	public boolean delete() throws NoAvailableException {
 		//delete user profile
 		this.get_profile().delete();
 		
@@ -118,6 +137,19 @@ public abstract class User {
 		return users;
 	}
 	
-	public abstract boolean create();
-	public abstract boolean connect(User user2);
+//	public abstract boolean create();
+	public abstract String[] connect(User user2, String frnType) throws Exception;
+	
+	public boolean create() {
+		return userRepository.save(_username, _password, _type);
+	}
+
+//	public boolean update() {
+//		return userRepository.update(_username, _password, _type);
+//	}
+	
+	public boolean isChildren()
+	{
+		return _type == "Children";
+	}
 }

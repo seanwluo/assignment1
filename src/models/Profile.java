@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import Store.ProfileData;
+import repository.ProfileRepository;
 
 /**
  * @author Luo
@@ -15,23 +16,27 @@ public class Profile {
 	private User _user;
 	private String _firstname;
 	private String _lastname;
-	private double _age;
+	private int _age;
 	private String _gender;
 	private String _status;
 	private String _picUrl;
+	private String _state;
+	private ProfileRepository profileRepository = new ProfileRepository();
 	
 	public Profile(User user) {
 		this._user = user;
 	}
 	
 	public Profile(User user, String firstname, String lastname,
-			double age, String gender, String status, String picUrl) {
+			int age, String gender, String status, String picUrl, String state) {
 		this._user = user;
 		this._firstname = firstname;
 		this._lastname = lastname;
 		this._age = age;
 		this._gender = gender;
+		this._status = status;
 		this._picUrl = picUrl;
+		this._state = state;
 	}
 
 	public String get_firstname() {
@@ -50,11 +55,11 @@ public class Profile {
 		this._lastname = _lastname;
 	}
 
-	public double get_age() {
+	public int get_age() {
 		return _age;
 	}
 
-	public void set_age(double age) {
+	public void set_age(int age) {
 		this._age = age;
 	}
 
@@ -82,39 +87,32 @@ public class Profile {
 		this._picUrl = picUrl;
 	}
 	
+	public String get_state() {
+		return _state;
+	}
+	
+	public void set_state(String state) {
+		this._state = state;
+	}
+	
 	public String toString() {
 		return "\nUsername: " + _user.get_username() + "\nFirst name: "  +  _firstname +
 				"\nLast name: " + _lastname + "\nGender: " + _gender + "\nAge: " + _age + 
-				"\nStatus: " + _status + "\nProfile image: " + _picUrl;
+				"\nStatus: " + _status + "\nProfile image: " + _picUrl + "\nState: " + _state;
 	}
 
 	public boolean create() {
-//		check unique key
-		if(isUniqUsername()) {
-			ProfileData.write(_user.get_username(), new String[]{_firstname, _lastname, _gender, Double.toString(_age), _status, _picUrl});
-			return true;
-		} else {
-			System.out.println("\nUser profile already created");
-			return false;
-		}
+		return profileRepository.save(_user.get_username(), _firstname, _lastname, _age, _gender, 
+				_status, _picUrl, _state);
 	}
 	
 	public boolean update() {
-		ProfileData.write(_user.get_username(), new String[]{_firstname, _lastname, _gender, Double.toString(_age)});
-		
+//		profileRepository.update(_user.get_username(), new String[]{_firstname, _lastname, _gender, Integer.toString(_age)});
 		return true;
 	}
 	
 	public boolean delete() {
-		ProfileData.remove(_user.get_username());
-
+//		profileRepository.delete();
 		return true;
-	}
-	
-	private boolean isUniqUsername() {
-		Map<String, ArrayList<String>> pfData = ProfileData.get();
-		ArrayList<String> value = pfData.get(_user.get_username());
-		
-		return value == null;
 	}
 }
