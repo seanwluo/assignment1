@@ -15,18 +15,42 @@ import repository.UserRepository;
 public class TransferFileToDB {
 	private static final String peopleFile = "people.txt";
 	private static final String friendshipFile = "relations.txt";
-//	private List<String> peopleData = new ArrayList<String>();
-//	private List<String> friendshipData = new ArrayList<String>();
 	
-	public boolean fileExists() {
-		return false;
+	public static void run()
+	{
+		 checkAndLoadPerson();
+		 checkAndLoadFriendship();
 	}
-	
-	public void loadPersonData()
+
+//	TOD): Handle already exists user
+	private static void checkAndLoadPerson()
 	{
 		FileHandler fService = new FileHandler(peopleFile);
+		
+		if(!fService.fileExists()){
+			System.out.printf("%s file not exists", peopleFile);
+			return;
+		} else {
+			loadPersonData(fService.read());
+		}
+	}
+	
+	private static void checkAndLoadFriendship()
+	{
+		FileHandler fService = new FileHandler(friendshipFile);
+		
+		if(!fService.fileExists()){
+			System.out.printf("%s file not exists", friendshipFile);
+			return;
+		} else {
+			loadFriendshipData(fService.read());
+		}
+	}
+	
+	private static void loadPersonData(List<String> list)
+	{		
 		List<String> peopleData = new ArrayList<String>();
-		peopleData = processData(fService.read());
+		peopleData = processData(list);
 		UserRepository userRepo = new UserRepository();
 		ProfileRepository profileRepo = new ProfileRepository();
 		
@@ -58,11 +82,11 @@ public class TransferFileToDB {
 		
 	}
 	
-	public void loadFriendshipData()
+	private static void loadFriendshipData(List<String> fileData)
 	{
-		FileHandler fService = new FileHandler(friendshipFile);
+		
 		List<String> friendshipData = new ArrayList<String>();
-		friendshipData = fService.read();
+		friendshipData = fileData;
 		FriendShipRepository frndRepo = new FriendShipRepository();;
 		
 		for(String data : friendshipData)
@@ -76,7 +100,7 @@ public class TransferFileToDB {
 		}
 	}
 	
-	private List<String> processData(List<String> dataList)
+	private static List<String> processData(List<String> dataList)
 	{	
 		List<String> newDataList = new ArrayList<String>();
 		
@@ -96,7 +120,7 @@ public class TransferFileToDB {
 		return newDataList;		
 	}
 	
-	private String getUserType(int age)
+	private static String getUserType(int age)
 	{	
 		String type;
 		
@@ -109,7 +133,7 @@ public class TransferFileToDB {
 		return type;
 	}
 	
-	private int ageConvertToInt(String ageString)
+	private static int ageConvertToInt(String ageString)
 	{
 		int age = 0;
 		try
@@ -124,7 +148,7 @@ public class TransferFileToDB {
 	}
 	
 //	split name on whitesapce to get firstname and last name
-	private String[] getSplitedName(String name)
+	private static String[] getSplitedName(String name)
 	{
 		String[] nameArray = name.split(" ");
 		String firstname="", lastname="";

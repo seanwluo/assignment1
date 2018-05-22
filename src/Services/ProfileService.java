@@ -51,10 +51,11 @@ public class ProfileService {
 	public static Profile getByUser(User user) {
 		ProfileRepository profileRepository = new ProfileRepository();
 		Profile profile = null;
-		ResultSet result = profileRepository.findByUser(user.get_username());
+		ResultSet result = profileRepository.findByUsername(user.get_username());
 		
 		if(result == null)
-		{
+		{	
+			System.out.println("Profile not found");
 			return profile;
 		}
 		
@@ -62,18 +63,21 @@ public class ProfileService {
 		{
 			while(result.next())
 			{
+				String username = result.getString("username");
+				System.out.println(username);
 				String firstname = result.getString("firstname");
 				String lastname = result.getString("lastname");
 				String gender = result.getString("gender");
 				int age = result.getInt("age");
 				String status = result.getString("status");
-				String picUrl = result.getString("ulr");
+				String picUrl = result.getString("picUrl");
 				String state = result.getString("state");
 				
 				profile = new Profile(user, firstname, lastname, age, gender, status, picUrl, state);
 			}
 		} catch(Exception e)
-		{
+		{	
+			e.printStackTrace();
 			System.out.println("Profile not found");
 		}
 		

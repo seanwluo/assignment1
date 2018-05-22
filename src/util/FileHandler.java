@@ -1,6 +1,7 @@
 package util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,13 +15,30 @@ public class FileHandler
 	{
 		this._fileName = fileName;
 	}
+	
 	//check file exists
+	public boolean fileExists() {
+		File file = new File(_fileName);
+		
+		if(file.exists())
+		{
+			return true;
+		} else
+		{
+			return false;
+		}
+	}
 	
 	/*
 	 * Create method to read from file
 	 */
 	public List<String> read()
-	{
+	{	
+		if(!fileExists())
+		{
+			return null;
+		}
+		
 		List<String> dataArray = new ArrayList<String>();
 		
 		try {

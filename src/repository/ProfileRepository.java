@@ -22,7 +22,7 @@ public class ProfileRepository {
 	public boolean save(String username, String firstname, String lastname, 
 			int age, String gender, String status, String url, String state)
 	{	
-		String sql = "insert into profiles(user, firstname, lastname, age, gender, status, picUrl, state) values (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into profiles(username, firstname, lastname, age, gender, status, picUrl, state) values (?, ?, ?, ?, ?, ?, ?, ?)";
 		int execution;
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
@@ -49,16 +49,13 @@ public class ProfileRepository {
 		return execution == 1;
 	}
 	
-	public ResultSet findByUser(String username)
-	{	
+	public ResultSet findByUsername(String username)
+	{
 		CachedRowSet rowset = null;
-		String sql = "select * from profiles where user=?";
-//		String sql = "select * from profiles";
-		
 		try {
-			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
+			PreparedStatement prepStatement = _dbConnection.prepareStatement("select * from profiles where username = ?");
 			prepStatement.setString(1, username);
-			
+						
 			ResultSet result = prepStatement.executeQuery();
 			rowset = new CachedRowSetImpl();
 			rowset.populate(result);
@@ -66,15 +63,14 @@ public class ProfileRepository {
 			_dbConnection.commit();
 			prepStatement.close();
 			result.close();
-		} catch(SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error in query result");
+			System.out.println("Error in get by user query");
 		}
 		
 		return rowset;
-		
 	}
-
+	
 	public ResultSet all() {
 		CachedRowSet rowset = null;
 		String sql = "select * from profiles";
