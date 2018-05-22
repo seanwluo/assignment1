@@ -1,5 +1,6 @@
 package controller;
 
+import Exception.NoAvailableException;
 import Services.SceneManager;
 import Services.UserService;
 import javafx.event.ActionEvent;
@@ -31,12 +32,13 @@ public class LoginController {
 	  {
 		  @Override public void handle(ActionEvent event)
 		  {
-			  User user = authorize();
-			  if (user != null) {
-				  loginService.authenticated(user);
-			  } else {
-				  errorLbl.setVisible(true);
-			  }
+			  User user;
+			try {
+				user = authorize();
+				loginService.authenticated(user);
+			} catch (NoAvailableException e) {
+				errorLbl.setVisible(true);
+			}
 		  }
 	  }); 
 	}
@@ -57,14 +59,11 @@ public class LoginController {
 	 * 
 	 * If accepted, return a sessionID for the authorized session
 	 * otherwise, return null.
+	 * @throws NoAvailableException 
 	 */
-	private User authorize()
+	private User authorize() throws NoAvailableException
 	{
 		User user = UserService.findByUsername(usernameTxt.getText());
-		
-		if(user == null) {
-			return null;
-		}
 		
 		if(user.get_password().equals(passwordTxt.getText()))
 		{

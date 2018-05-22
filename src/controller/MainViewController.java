@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import Exception.NoAvailableException;
 import Services.FriendshipService;
 import Services.SceneManager;
 import Services.UserService;
@@ -12,12 +13,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Callback;
@@ -68,9 +71,15 @@ public class MainViewController {
 	
 	public void setProfile()
 	{	
-		Profile profile = user.get_profile();
-		String imageUrl = profile.get_picUrl();
+		Profile profile = null;
+		try {
+			profile = user.get_profile();
+		} catch (NoAvailableException e) {
+			Alert alert = new Alert(AlertType.ERROR, e.getMessage());
+			alert.show();
+		}
 		
+		String imageUrl = profile.get_picUrl();
 		profileImg.setImage(getImage(imageUrl));
 		
 		String name = profile.get_firstname() + " " + profile.get_lastname();

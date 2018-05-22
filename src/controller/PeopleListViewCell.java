@@ -87,16 +87,10 @@ public class PeopleListViewCell extends ListCell<User>{
 	
 	private void makeFreindship(User user, String frnType)
 	{
-//		returns String[reuslt, msg] e.g. ["error", "Could not connect"]
-		String[] result = loginUser.connect(user, frnType);
-    	
-    	if(result[0].equals("success")) {
-    		updateItem(lastUser, true);
-    		Alert alert = new Alert(AlertType.INFORMATION, result[1]);
-			alert.show();
-    	} else {
-    		Alert alert = new Alert(AlertType.ERROR, result[1]);
-			alert.show();
-    	}
+		try {
+			loginUser.connect(user, frnType);
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR, e.getMessage());
+		}
 	}
 }

@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import Exception.AlreadyConnectedException;
+import Exception.NoAvailableException;
+import Exception.NoSuchAgeException;
 import Services.FriendshipService;
 import Services.ProfileService;
 import Store.UserData;
@@ -89,7 +92,7 @@ public abstract class User {
 	 *  Get profile of current user
 	 *  @return Profile
 	 */
-	public Profile get_profile() {
+	public Profile get_profile() throws NoAvailableException {
 		return  ProfileService.getByUser(this);
 	};
 	
@@ -97,7 +100,7 @@ public abstract class User {
 	 * Delete current user related all the data from store
 	 * @return boolean
 	 */
-	public boolean delete() {
+	public boolean delete() throws NoAvailableException {
 		//delete user profile
 		this.get_profile().delete();
 		
@@ -135,7 +138,7 @@ public abstract class User {
 	}
 	
 //	public abstract boolean create();
-	public abstract String[] connect(User user2, String frnType);
+	public abstract String[] connect(User user2, String frnType) throws Exception;
 	
 	public boolean create() {
 		return userRepository.save(_username, _password, _type);

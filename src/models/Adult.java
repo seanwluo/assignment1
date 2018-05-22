@@ -1,5 +1,8 @@
 package models;
 
+import Exception.AlreadyConnectedException;
+import Exception.NoAccountCreatedException;
+import Exception.NoSuchAgeException;
 import Services.FriendshipService;
 import Store.UserData;
 
@@ -23,28 +26,27 @@ public class Adult extends User {
 	 * @return boolean
 	 */
 	@Override
-	public String[] connect(User user2, String frnType) {
+	public String[] connect(User user2, String frnType) throws Exception {
 		System.out.println("From Adult");
 		String[] callback;
 		
 		boolean frnsExists = FriendshipService.existsFriendShip(this, user2);
 		if(frnsExists)
 		{
-			return new String[] {"error", "You are already connected"}; 
+			throw new AlreadyConnectedException("You are already connected");
 		}		
 		
-		if(user2 instanceof Adult) {
-			Friendship frsd = new Friendship(this, user2, frnType);
-			if(frsd.create()) {
-				callback = new String[] {"success", "Sucessfully connected"};
-			} else {
-
-				callback = new String[] {"error", "Could not connect"};
-			}
-		} else {
-			callback = new String[] {"error", "Under age to have other friends"};
+		if(user2 instanceof Children) {
+			throw new NoSuchAgeException("Under age to have other friends");
 		}
 		
+		Friendship frsd = new Friendship(this, user2, frnType);
+		if(frsd.create()) {
+			callback = new String[] {"success", "Sucessfully connected"};
+		} else {
+
+			throw new NoAccountCreatedException("Freindhsip not created.");
+		}
 		return callback;
 	}
 }

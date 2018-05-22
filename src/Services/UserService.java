@@ -3,6 +3,10 @@ package Services;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import Exception.NoAccountCreatedException;
+import Exception.NoAvailableException;
+import Exception.NoParentException;
 import models.Adult;
 import models.Children;
 import models.User;
@@ -62,12 +66,12 @@ public class UserService {
 	 * @param username:String
 	 * @return User
 	 * */
-	public static User findByUsername(String username) {
+	public static User findByUsername(String username) throws NoAvailableException {
 		UserRepository userRepo = new UserRepository();
 		ResultSet result = userRepo.findByUsername(username);
 		
 		if (result == null) {
-			return null;
+			throw new NoAvailableException("User not found");
 		}
 		
 		User user = null;
@@ -116,12 +120,13 @@ public class UserService {
 	 *        lastname:String,  gender:string, age:double, status:String, picUrl:String
 	 * @return 
 	 * */
-	public static String[] createDependent(String parentName_1, String parentName_2, String username) {
+	public static String[] createDependent(String parentName_1, String parentName_2, String username) throws NoAvailableException,
+	NoParentException, NoAccountCreatedException {
 		User parent1 = UserService.findByUsername(parentName_1);
 		User parent2 = UserService.findByUsername(parentName_2);
 		
 		if(parent1 == null || parent2 == null) {
-			return new String[] {"error", "Both parents should have account."};
+			throw new NoParentException("User not found");
 		} else {
 			User user = new Children(username, "password");
 			
@@ -130,10 +135,10 @@ public class UserService {
 				//No other can create parent-child connection 
 				FriendshipService.create(user, parent1, "parent");
 				FriendshipService.create(user, parent2, "parent");
-
-				return new String[] {"error", "Account created."};
+				
+				return new String[] {"success", "Account created."};
 			} else {
-				return new String[] {"error", "Could not create account."};
+				throw new NoAccountCreatedException("User Account not created.");
 			}
 		}
 		

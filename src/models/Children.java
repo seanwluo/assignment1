@@ -2,8 +2,10 @@ package models;
 
 import java.util.List;
 
+import Exception.AlreadyConnectedException;
+import Exception.NotToBeFriendsException;
+import Exception.TooYoungException;
 import Services.FriendshipService;
-import Store.UserData;
 
 /**
  * @author Luo
@@ -25,12 +27,13 @@ public class Children extends User {
 	 * @return boolean
 	 */
 	@Override
-	public String[] connect(User user2, String frnType) {
+	public String[] connect(User user2, String frnType) throws Exception {
 		boolean frnsExists = FriendshipService.existsFriendShip(this, user2);
 		System.out.println("From Children");
+		
 		if(frnsExists)
 		{
-			return new String[] {"error", "You are already connected"}; 
+			throw new AlreadyConnectedException("You are already connected");
 		}
 		
 		Profile profile = this.get_profile();
@@ -40,7 +43,7 @@ public class Children extends User {
 		if (user2 instanceof Children) {
 			// Dependent 2 years or under cannot have friends
 			if(age <= 2) {
-				return new String[] {"error", "Under age to have other friends"};
+				throw new TooYoungException("Under age to have other friends");
 			}
 			
 			Profile user2Profile = user2.get_profile();
@@ -49,7 +52,7 @@ public class Children extends User {
 			//Check for same parents
 			//change class type User to Dependent
 			if(hasSameParents( (Children)user2 )) {
-				return new String[] {"error", "Can not be friends. Both has same parents."};
+				throw new NotToBeFriendsException("Both has same parents");
 			};
 			
 			//connecting user age should greater than 2 and 

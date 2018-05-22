@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import Exception.NoAvailableException;
 import Store.FriendshipData;
 import models.Adult;
 import models.Children;
@@ -77,14 +78,14 @@ public class FriendshipService {
 	 * @param type:String
 	 * @return List<Friendship>
 	 */
-	public static List<Friendship> findByType(String type) {
+	public static List<Friendship> findByType(String type) throws NoAvailableException {
 		FriendShipRepository frndshipRepository = new FriendShipRepository();
 		ResultSet result = frndshipRepository.friendshipByType(type);
 		List<Friendship> friendships = new ArrayList<Friendship>();
 		
 		if(result == null)
 		{
-			return friendships;
+			throw new NoAvailableException("Relation Not found");
 		}
 		
 		Friendship friendship = null;
@@ -159,7 +160,7 @@ public class FriendshipService {
 	 * @param user1:String, user2:String
 	 * @return Friendship
 	 */
-	public static Friendship findDirectConnection(String user1, String user2) {
+	public static Friendship findDirectConnection(String user1, String user2) throws NoAvailableException {
 		Map<String, ArrayList<String>> data = FriendshipData.get();
 		
 		for (Entry<String, ArrayList<String>> entry : data.entrySet()) {
@@ -176,6 +177,8 @@ public class FriendshipService {
 				if(user1 != null && user2 != null) {
 					Friendship friendship = new Friendship(usr1, usr2, type);
 					return friendship;
+				} else {
+					throw new NoAvailableException("Friendship not found");
 				}
 			}
 		}

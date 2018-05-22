@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exception.NoAccountCreatedException;
+import Exception.NoAvailableException;
 import models.Adult;
 import models.Children;
 import models.Profile;
@@ -17,46 +19,20 @@ import repository.UserRepository;
  * The ProfileService class provide data to Profile object
  *   
  */
-public class ProfileService {
-	public static List<Profile> list() {
-		ProfileRepository profileRepository = new ProfileRepository();
-		Profile profile = null;
-		ResultSet result = profileRepository.all();
-		
-		if (result == null) {
-			return null;
-		}
-		
-		try {
-			User user;
-			while (result.next()) {
-				String username = result.getString("user");
-				String firstname = result.getString("firstname");
-				
-				System.out.println(firstname);
-			}
-
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-	
+public class ProfileService {	
 	/*
 	 *  Get Profile of given user object
 	 *  @param user:User
 	 *  @return Profile
 	 * */
-	public static Profile getByUser(User user) {
+	public static Profile getByUser(User user) throws NoAvailableException {
 		ProfileRepository profileRepository = new ProfileRepository();
 		Profile profile = null;
 		ResultSet result = profileRepository.findByUsername(user.get_username());
 		
 		if(result == null)
 		{	
-			System.out.println("Profile not found");
-			return profile;
+			throw new NoAvailableException("Profile not found.");
 		}
 		
 		try
@@ -77,8 +53,7 @@ public class ProfileService {
 			}
 		} catch(Exception e)
 		{	
-			e.printStackTrace();
-			System.out.println("Profile not found");
+			throw new NoAvailableException("Profile not found. Somwthing went wrong.");
 		}
 		
 		return profile;
@@ -91,14 +66,14 @@ public class ProfileService {
 	 *  @return boolean
 	 * */
 	public static boolean create(User user, String firstname, String lastname, String gender, int age, String status,
-			String picUrl, String state) {
+			String picUrl, String state) throws NoAccountCreatedException {
 		Profile pf = new Profile(user, firstname, lastname, age, gender, status, picUrl, state);
 		if(pf.create()) {
 //			System.out.println("\n User profile created Sucessfully");
 			return true;
 		} else {
 //			System.out.println("\n User profile not created.");
-			return false;
+			throw new NoAccountCreatedException("Profile not found.");
 		}
 	}
 }

@@ -1,5 +1,8 @@
 package controller;
 
+import Exception.NoAccountCreatedException;
+import Exception.NoAvailableException;
+import Exception.NoParentException;
 import Services.ProfileService;
 import Services.SceneManager;
 import Services.UserService;
@@ -77,22 +80,15 @@ public class SignUpController {
 					}
 				}
 				
-				
-				if(createUser)
-				{	
-					User user = UserService.findByUsername(username);
-					boolean createProfile = ProfileService.create(user, firstname, lastname, gender, age, status, picUrl, state);
-					if(createProfile) {
-						loginService.authenticated(UserService.findByUsername(username));
-					} else {
-						Alert alert = new Alert(AlertType.ERROR, "Something went wrong. Profile not created.");
-						alert.show();
-					}
-				} else {
-					Alert alert = new Alert(AlertType.ERROR, "Something went wrong. Account not created.");
+				User user=null;
+				try {
+					user = UserService.findByUsername(username);
+					ProfileService.create(user, firstname, lastname, gender, age, status, picUrl, state);
+					loginService.authenticated(UserService.findByUsername(username));
+				} catch (NoAvailableException | NoAccountCreatedException e) {
+					Alert alert = new Alert(AlertType.ERROR, e.getMessage());
 					alert.show();
 				}
-				
 			}
 		});
 		
@@ -118,16 +114,16 @@ public class SignUpController {
 			alert.show();
 		}
 		else{
-			String[] result = UserService.createDependent(parent1Txt.getText(), parent2Txt.getText(), username);
-			if(result.equals("error"))
-			{	
-				createUser = false;
-				Alert alert = new Alert(AlertType.ERROR, result[1]);
-				alert.show();
-			} else {
+			String[] result;
+			try {
+				result = UserService.createDependent(parent1Txt.getText(), parent2Txt.getText(), username);
 				createUser = true;
+			} catch (NoAvailableException | NoParentException | NoAccountCreatedException e) {
+				Alert alert = new Alert(AlertType.ERROR, e.getMessage());
+				alert.show();
 			}
 		}
+		
 		return createUser;
 	}
 	
