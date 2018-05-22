@@ -5,7 +5,7 @@ import org.hsqldb.Server;
 /**
  * 
  * @author Raj
- *
+ * Start or stop embedded Hsql
  */
 public class HSQLServer
 {
@@ -20,9 +20,6 @@ public class HSQLServer
 		_hsqlServer.setSilent(true);
 		_hsqlServer.setDatabaseName(0, DB_NAME);
 		_hsqlServer.setDatabasePath(0, DB_PATH);
-//		_hsqlServer.putPropertiesFromString("hsqldb.write_delay=false");
-//		_hsqlServer.setNoSystemExit(true);
-//		_hsqlServer.setPort(8080);
 	}
 	
 	public void start()

@@ -13,7 +13,7 @@ import models.User;
 
 /**
  * 
- * @author Owner
+ * @author sean
  * 
  * Controllers for login screen
  */

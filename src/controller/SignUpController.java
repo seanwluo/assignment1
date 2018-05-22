@@ -3,6 +3,7 @@ package controller;
 import Exception.NoAccountCreatedException;
 import Exception.NoAvailableException;
 import Exception.NoParentException;
+import Exception.NotToBeCoupledException;
 import Services.ProfileService;
 import Services.SceneManager;
 import Services.UserService;
@@ -17,6 +18,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import models.User;
 
+/**
+ * 
+ * @author sean
+ *
+ */
 public class SignUpController {
 	@FXML private TextField usernameTxt;
 	@FXML private TextField fnameTxt;
@@ -118,7 +124,7 @@ public class SignUpController {
 			try {
 				result = UserService.createDependent(parent1Txt.getText(), parent2Txt.getText(), username);
 				createUser = true;
-			} catch (NoAvailableException | NoParentException | NoAccountCreatedException e) {
+			} catch (NoAvailableException | NoParentException | NoAccountCreatedException | NotToBeCoupledException e) {
 				Alert alert = new Alert(AlertType.ERROR, e.getMessage());
 				alert.show();
 			}

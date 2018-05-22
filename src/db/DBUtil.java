@@ -9,7 +9,7 @@ import org.hsqldb.Server;
 /**
  * 
  * @author Raj
- *
+ *  Connect to Database
  */
 public class DBUtil 
 {	

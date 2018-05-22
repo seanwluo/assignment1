@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author Raj
+ * File handling class
+ *
+ */
 public class FileHandler
 {
 	private String _fileName;

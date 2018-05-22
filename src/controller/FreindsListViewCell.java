@@ -14,6 +14,12 @@ import javafx.scene.layout.Priority;
 import models.Friendship;
 import models.User;
 
+/**
+ * 
+ * @author sean
+ * 
+ * to handle listview change and add element ot list
+ */
 public class FreindsListViewCell extends ListCell<Friendship>{
 	private HBox hbox = new HBox();
     private Label label = new Label("(empty)");

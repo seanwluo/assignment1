@@ -11,6 +11,11 @@ import com.sun.rowset.CachedRowSetImpl;
 
 import db.DBUtil;
 
+/**
+ * 
+ * @author Raj
+ *	SQL query on users table
+ */
 public class UserRepository
 {	
 	private Connection _dbConnection;

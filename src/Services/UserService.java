@@ -7,6 +7,7 @@ import java.util.List;
 import Exception.NoAccountCreatedException;
 import Exception.NoAvailableException;
 import Exception.NoParentException;
+import Exception.NotToBeCoupledException;
 import models.Adult;
 import models.Children;
 import models.User;
@@ -121,13 +122,17 @@ public class UserService {
 	 * @return 
 	 * */
 	public static String[] createDependent(String parentName_1, String parentName_2, String username) throws NoAvailableException,
-	NoParentException, NoAccountCreatedException {
+	NoParentException, NoAccountCreatedException, NotToBeCoupledException {
+		
 		User parent1 = UserService.findByUsername(parentName_1);
 		User parent2 = UserService.findByUsername(parentName_2);
 		
 		if(parent1 == null || parent2 == null) {
 			throw new NoParentException("User not found");
 		} else {
+			if(!FriendshipService.existsFriendShip(parent1, parent2)) {
+				throw new NotToBeCoupledException("Parents are not connected");
+			}
 			User user = new Children(username, "password");
 			
 			if(user.create()) {

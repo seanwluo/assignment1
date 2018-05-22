@@ -10,7 +10,7 @@ import repository.UserRepository;
 /**
  * 
  * @author Raj
- *
+ *	Transfer data from file to database
  */
 public class TransferFileToDB {
 	private static final String peopleFile = "people.txt";

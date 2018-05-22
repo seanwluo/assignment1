@@ -17,6 +17,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import models.User;
 
+/**
+ * 
+ * @author sean
+ *
+ *
+ * to handle listview change and add element ot list
+ */
 public class PeopleListViewCell extends ListCell<User>{
 	private HBox hbox = new HBox();
     private Label label = new Label("(empty)");

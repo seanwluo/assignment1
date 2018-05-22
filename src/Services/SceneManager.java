@@ -10,6 +10,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import models.User;
 
+/**
+ * 
+ * @author sean
+ * Scene Manager to handle 3 different scene login, signup and main view
+ */
 public class SceneManager {
 	  private Scene scene;
 
@@ -17,18 +22,10 @@ public class SceneManager {
 	    this.scene = scene;
 	  }
 
-	  /**
-	   * Callback method invoked to notify that a user has been authenticated.
-	   * Will show the main application screen.
-	   */ 
 	  public void authenticated(User user) {
 	    showMainView(user);
 	  }
 
-	  /**
-	   * Callback method invoked to notify that a user has logged out of the main application.
-	   * Will show the login application screen.
-	   */ 
 	  public void logout() {
 	    showLoginScreen();
 	  }
@@ -55,8 +52,6 @@ public class SceneManager {
 	      
 	      controller.initialize(user);
 	      controller.LogOutManager(this);
-//	      controller.setProfile(user.get_profile());
-//	      controller.setFriendList(user);
 	    } catch (IOException e) {
 //	      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
 	    }

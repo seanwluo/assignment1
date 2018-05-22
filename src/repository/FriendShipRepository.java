@@ -14,7 +14,7 @@ import db.DBUtil;
 /**
  * 
  * @Raj
- *
+ * SQL query on freindships table
  */
 public class FriendShipRepository
 {

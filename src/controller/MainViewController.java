@@ -28,6 +28,12 @@ import models.Friendship;
 import models.Profile;
 import models.User;
 
+/**
+ * 
+ * @author sean
+ * Main ui component controller
+ *
+ */
 public class MainViewController {
 	@FXML private Button logOutBtn;
 	@FXML private ImageView profileImg;
