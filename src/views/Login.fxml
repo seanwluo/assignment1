@@ -19,5 +19,7 @@
       <Label fx:id="errorLbl" layoutX="234.0" layoutY="278.0" text="Username or Password is not matched" textFill="#e43333" visible="false" />
       <Button fx:id="loginBtn" layoutX="409.0" layoutY="424.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="88.0" text="Sign In" />
       <Button fx:id="signUpBtn" layoutX="540.0" layoutY="424.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="88.0" text="Sign Up" />
+      <Label layoutX="138.0" layoutY="437.0" text="Password: password" textFill="#4989b1" />
+      <Label layoutX="138.0" layoutY="416.0" text="Username: user" textFill="#4989b1" />
    </children>
 </Pane>
