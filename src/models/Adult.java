@@ -1,5 +1,6 @@
 package models;
 
+import Services.FriendshipService;
 import Store.UserData;
 
 /**
@@ -39,13 +40,27 @@ public class Adult extends User {
 	 * @return boolean
 	 */
 	@Override
-	public boolean connect(User user2) {
+	public String[] connect(User user2, String frnType) {
+		String[] callback;
+		
+		boolean frnsExists = FriendshipService.existsFriendShip(this, user2);
+		if(frnsExists)
+		{
+			return new String[] {"error", "You are already connected"}; 
+		}		
+		
 		if(user2 instanceof Adult) {
-			Friendship frsd = new Friendship(this, user2, "Friend");
-			frsd.create();
-			return true;
+			Friendship frsd = new Friendship(this, user2, frnType);
+			if(frsd.create()) {
+				callback = new String[] {"success", "Sucessfully connected"};
+			} else {
+
+				callback = new String[] {"error", "Could not connect"};
+			}
+		} else {
+			callback = new String[] {"error", "Under age to have other friends"};
 		}
 		
-		return false;
+		return callback;
 	}
 }

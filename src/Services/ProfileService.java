@@ -94,10 +94,10 @@ public class ProfileService {
 			String picUrl, String state) {
 		Profile pf = new Profile(user, firstname, lastname, age, gender, status, picUrl, state);
 		if(pf.create()) {
-			System.out.println("\n User profile created Sucessfully");
+//			System.out.println("\n User profile created Sucessfully");
 			return true;
 		} else {
-			System.out.println("\n User profile not created.");
+//			System.out.println("\n User profile not created.");
 			return false;
 		}
 	}

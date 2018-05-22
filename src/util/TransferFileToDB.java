@@ -71,12 +71,12 @@ public class TransferFileToDB {
 			String state = dataArray[5].trim();
 			if( userRepo.save(firstname, "password", type)) {
 				if(profileRepo.save(firstname, firstname, lastname, age, gender, status, picUrl, state)){
-					//
+					System.out.printf("\n%s user created", firstname);
 				} else {
-					System.out.println("Profile not created.");
+					System.out.printf("\n%s profile not created.", firstname);
 				}
 			} else {
-				System.out.println("User Not Created.");
+				System.out.printf("\n%s user Not Created.", firstname);
 			}
 		}
 		
@@ -96,7 +96,12 @@ public class TransferFileToDB {
 			String user2 = dataArray[1].trim();
 			String type = dataArray[2].trim();
 			
-			frndRepo.save(user1, user2, type);
+			if(frndRepo.save(user1, user2, type))
+			{
+				System.out.printf("\n%s ../ friendship created", data);
+			} else {
+				System.out.printf("\n%s *^* friendship not created", data);
+			}
 		}
 	}
 	

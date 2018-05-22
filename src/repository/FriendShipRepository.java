@@ -27,7 +27,7 @@ public class FriendShipRepository
 	
 	public boolean save(String username1, String username2, String type)
 	{	
-		String sql = "insert into friendships(user1, user2, type) values (?, ?, ?)";
+		String sql = "insert into friendships(username1, username2, type) values (?, ?, ?)";
 		int execution;
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
@@ -51,7 +51,7 @@ public class FriendShipRepository
 	public ResultSet friendshipByUser(String username)
 	{	
 		CachedRowSet rowset = null;
-		String sql = "select * from friendships where user1=? or user2=?";
+		String sql = "select * from friendships where username1=? or username2=?";
 		
 		try {
 			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
@@ -70,11 +70,6 @@ public class FriendShipRepository
 		}
 		
 		return rowset;	
-	}
-
-	public ResultSet list() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public ResultSet friendshipByType(String type) {
@@ -97,5 +92,27 @@ public class FriendShipRepository
 		}
 		
 		return rowset;	
+	}
+
+	public boolean delete(int id) {
+		// "delete from Survey where name = :name";
+		String sql = "delete from friendships where id = ?";
+		int execution;
+		try {
+			PreparedStatement prepStatement = _dbConnection.prepareStatement(sql);
+			prepStatement.setInt(1, id);
+			
+			execution = prepStatement.executeUpdate();
+			_dbConnection.commit();
+			prepStatement.close();
+		} catch (SQLException e) {
+			execution = 0;
+		} catch(Exception e)
+		{
+			execution = 0;
+		}
+	
+		return execution == 1;
+		
 	}
 }

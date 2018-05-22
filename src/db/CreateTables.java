@@ -26,7 +26,7 @@ public class CreateTables {
 	{	
 		String createQuery = null;
 		buildTablesQuery();
-//		_dbConnection.prepareStatement("truncate schema public restart identity and commit no check").execute();
+		_dbConnection.prepareStatement("truncate schema public restart identity and commit no check").execute();
 
 		try {
 			for(String tableName: tableQuries.keySet())
@@ -35,8 +35,8 @@ public class CreateTables {
 //				_dbConnection.prepareStatement("drop table " + tableName + " if exists;").execute();
 				
 				// Build table create query
-				createQuery = String.format("create table %s (%s);", tableName, tableQuries.get(tableName));
-				_dbConnection.prepareStatement(createQuery).execute();
+//				createQuery = String.format("create table %s (%s);", tableName, tableQuries.get(tableName));
+//				_dbConnection.prepareStatement(createQuery).execute();
 			}
 			_dbConnection.commit();
 		} finally {

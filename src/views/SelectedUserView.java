@@ -166,7 +166,7 @@ public class SelectedUserView {
 		if(user2 == null) {
 			System.out.println("\nUser not exists");
 		} else {
-			_user.connect(user2);
+			_user.connect(user2, "Freinds");
 			System.out.println("\nConnected to the " + username);
 		}
 		

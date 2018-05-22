@@ -11,13 +11,13 @@ import repository.FriendShipRepository;
  *   
  */
 public class Friendship {
-	private String _id;
+	private int _id;
 	private User _user1;
 	private User _user2;
 	private String _type;
 	private FriendShipRepository friendShipRepository = new FriendShipRepository();
 	
-	public Friendship (String id, User user1, User user2, String type) {
+	public Friendship (int id, User user1, User user2, String type) {
 		this._id = id;
 		this._user1 = user1;
 		this._user2 = user2;
@@ -60,8 +60,6 @@ public class Friendship {
 	 * @return boolean
 	 */
 	public boolean delete() {
-		FriendshipData.remove(_id);
-//		friendShipRepository.delete(_id);
-		return true;
+		return friendShipRepository.delete(_id);
 	}
 }

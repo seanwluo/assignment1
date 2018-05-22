@@ -135,7 +135,7 @@ public abstract class User {
 	}
 	
 //	public abstract boolean create();
-	public abstract boolean connect(User user2);
+	public abstract String[] connect(User user2, String frnType);
 	
 	public boolean create() {
 		return userRepository.save(_username, _password, _type);
@@ -144,4 +144,9 @@ public abstract class User {
 //	public boolean update() {
 //		return userRepository.update(_username, _password, _type);
 //	}
+	
+	public boolean isChildren()
+	{
+		return _type == "Children";
+	}
 }

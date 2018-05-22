@@ -24,49 +24,14 @@ import repository.FriendShipRepository;
 public class FriendshipService {
 	
 	/*
-	 * List all friendship form data to Friendship object
-	 * @param
-	 * @return List<Friendship>
-	 * */
-	public static List<Friendship> allFriendship() {
-		FriendShipRepository frndshipRepository = new FriendShipRepository();
-		ResultSet result = frndshipRepository.list();
-		List<Friendship> friendships = new ArrayList<Friendship>();
-		
-		if(result == null)
-		{
-			return friendships;
-		}
-		
-		Friendship friendship = null;
-		try {
-			while(result.next())
-			{
-				String username1 = result.getString("username1");
-				String username2 = result.getString("username2");
-				String type = result.getString("type");
-				
-				User user = UserService.findByUsername(username1);
-				User user2 = UserService.findByUsername(username2);
-				friendship = new Friendship(user, user2, type);
-				friendships.add(friendship);
-			}
-		} catch(Exception  e)
-		{
-			System.out.println("Error in query");
-		}
-	
-		return friendships;
-	}
-	
-	/*
 	 * Creates Friendship connection between two users with given type
 	 * @param user1:User, user2:User, type:String
 	 * @return
 	 */
-	public static void create(User user1, User user2, String type) {
+	public static boolean create(User user1, User user2, String type) {
+		
 		Friendship frns = new Friendship(user1, user2, type);
-		frns.create();
+		return frns.create();
 	}
 	
 	/*
@@ -87,14 +52,15 @@ public class FriendshipService {
 		Friendship friendship = null;
 		try {
 			while(result.next())
-			{
+			{	
+				Integer id = result.getInt("id");
 				String username1 = result.getString("username1");
 				String username2 = result.getString("username2");
 				String type = result.getString("type");
 				
 				User user = UserService.findByUsername(username1);
 				User user2 = UserService.findByUsername(username2);
-				friendship = new Friendship(user, user2, type);
+				friendship = new Friendship(id, user, user2, type);
 				friendships.add(friendship);
 			}
 		} catch(Exception  e)
@@ -208,13 +174,25 @@ public class FriendshipService {
 				User usr2 = UserService.findByUsername(username2);
 				
 				if(user1 != null && user2 != null) {
-					Friendship friendship = new Friendship(entry.getKey().toString(), usr1, usr2, type);
+					Friendship friendship = new Friendship(usr1, usr2, type);
 					return friendship;
 				}
 			}
 		}
 		
 		return null;
+	}
+
+	public static boolean existsFriendShip(User user1, User user2) {
+		List<User> users = user1.getFriends();
+		for(User user: users)
+		{
+			if(user.get_username().equals(user2.get_username()))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

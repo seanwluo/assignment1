@@ -40,7 +40,14 @@ public class Children extends User {
 	 * @return boolean
 	 */
 	@Override
-	public boolean connect(User user2) {
+	public String[] connect(User user2, String frnType) {
+		boolean frnsExists = FriendshipService.existsFriendShip(this, user2);
+		
+		if(frnsExists)
+		{
+			return new String[] {"error", "You are already connected"}; 
+		}
+		
 		Profile profile = this.get_profile();
 		double age = profile.get_age();
 		
@@ -48,8 +55,7 @@ public class Children extends User {
 		if (user2 instanceof Children) {
 			// Dependent 2 years or under cannot have friends
 			if(age <= 2) {
-				System.out.println("\nUnder age to have other friends");
-				return false;
+				return new String[] {"error", "Under age to have other friends"};
 			}
 			
 			Profile user2Profile = user2.get_profile();
@@ -58,21 +64,19 @@ public class Children extends User {
 			//Check for same parents
 			//change class type User to Dependent
 			if(hasSameParents( (Children)user2 )) {
-				System.out.println("\nCan not be friends. Both has same parents.");
-				return false;
+				return new String[] {"error", "Can not be friends. Both has same parents."};
 			};
 			
 			//connecting user age should greater than 2 and 
 			//age difference between Dependent is 3 or greater
 			if( user2Age > 2 && Math.abs(age - user2Age) <= 3 ) {
-				Friendship frnd = new Friendship(this, user2, "friend");
-				frnd.create();
+				FriendshipService.create(this, user2, frnType);
 				
-				return true;
+				return new String[] {"success", "Sucessfully connected"};
 			}
 		}
 
-		return false;
+		return new String[] {"error", "Could not connect"};
 	}
 
 	/*

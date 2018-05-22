@@ -95,10 +95,10 @@ public class UserService {
 		User user = new Adult(username, "password");
 		
 		if(user.create()) {
-			System.out.println("\nUser Created Sucessfully");
+//			System.out.println("\nUser Created Sucessfully");
 			return true;
 		} else {
-			System.out.println("\nError! Account not created.");
+//			System.out.println("\nError! Account not created.");
 			return false;
 		}
 	}
