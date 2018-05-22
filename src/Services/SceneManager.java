@@ -52,10 +52,11 @@ public class SceneManager {
 	      FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MainView.fxml"));
 	      scene.setRoot((Parent) loader.load());
 	      MainViewController controller = loader.<MainViewController>getController();
-
+	      
+	      controller.initialize(user);
 	      controller.LogOutManager(this);
-	      controller.setProfile(user.get_profile());
-	      controller.setFriendList(user);
+//	      controller.setProfile(user.get_profile());
+//	      controller.setFriendList(user);
 	    } catch (IOException e) {
 //	      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
 	    }

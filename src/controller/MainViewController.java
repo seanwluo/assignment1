@@ -5,6 +5,8 @@ import java.util.List;
 import Services.FriendshipService;
 import Services.SceneManager;
 import Services.UserService;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Callback;
@@ -31,8 +35,19 @@ public class MainViewController {
 	@FXML private Label statusLbl;
 	@FXML private ListView<Friendship> freindLstVw;
 	@FXML private ListView<User> peopleLstVw;
+	@FXML private TabPane tabPane;
+	@FXML private Tab profileTab;
+	@FXML private Tab friendsTab;
+	@FXML private Tab peopleTab;
 	
-	public void initialize() {}
+	private User user;
+	
+	public void initialize(User user) {
+		this.user = user;
+		setFriendList();
+		setProfile();
+		tabSelection();
+	}
 	
 	public void LogOutManager(SceneManager sceneManager)
 	{
@@ -45,15 +60,15 @@ public class MainViewController {
 		});
 	}
 	
-	public void setFriendList(User user)
+	public void setFriendList()
 	{	
-		
-		setFriends(user);
-		allPeople(user);
+		setFriends();
+		allPeople();
 	}
 	
-	public void setProfile(Profile profile)
+	public void setProfile()
 	{	
+		Profile profile = user.get_profile();
 		String imageUrl = profile.get_picUrl();
 		
 		profileImg.setImage(getImage(imageUrl));
@@ -66,7 +81,23 @@ public class MainViewController {
 		statusLbl.setText(profile.get_status());
 	}
 	
-	private void setFriends(User user)
+	private void tabSelection()
+	{
+		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>()
+		{
+		    @Override
+		    public void changed(ObservableValue<? extends Tab> ov, Tab oldTab, Tab newTab)
+		    {
+		       if(newTab == friendsTab) {
+		    	   setFriendList();
+		       } else if(newTab == peopleTab) {
+		    	   allPeople();
+		       }
+		    }
+		});
+	}
+	
+	private void setFriends()
 	{	
 		ObservableList<Friendship> friends = freindLstVw.getItems();
 		List<Friendship> frnds = FriendshipService.findByUsername(user.get_username());
@@ -80,7 +111,7 @@ public class MainViewController {
         });  
 	}
 	
-	private void allPeople(User user)
+	private void allPeople()
 	{
 		ObservableList<User> people = peopleLstVw.getItems();
         List<User> users = UserService.allUser(user.get_username());

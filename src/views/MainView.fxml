@@ -16,11 +16,11 @@
       </ToolBar>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="tabPane" prefHeight="300.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="Profile">
+          <Tab fx:id="profileTab" text="Profile">
                <content>
-                  <Pane id="profilePane" prefHeight="200.0" prefWidth="200.0">
+                  <Pane id="profilePane" prefHeight="300.0" prefWidth="400.0">
                      <children>
                         <ImageView fx:id="profileImg" fitHeight="150.0" fitWidth="200.0" layoutX="26.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -41,9 +41,9 @@
                   </Pane>
                </content>
           </Tab>
-            <Tab text="Connected people">
+            <Tab fx:id="friendsTab" text="Connected people">
                <content>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
+                  <Pane prefHeight="400.0" prefWidth="700.0">
                      <children>
                         <ListView fx:id="freindLstVw" cacheShape="false" layoutX="29.0" layoutY="40.0" prefHeight="286.0" prefWidth="673.0">
                            <effect>
@@ -53,9 +53,9 @@
                   </Pane>
                </content>
             </Tab>
-          <Tab text="People in Mininet">
+          <Tab fx:id="peopleTab" text="People in Mininet">
                <content>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
+                  <Pane prefHeight="400.0" prefWidth="700.0 ">
                      <children>
                         <ListView fx:id="peopleLstVw" layoutX="31.0" layoutY="26.0" prefHeight="304.0" prefWidth="663.0" />
                      </children></Pane>

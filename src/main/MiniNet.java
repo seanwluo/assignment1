@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import Services.ProfileService;
 import Services.SceneManager;
 import Services.UserService;
+import db.CreateTables;
 import db.DBUtil;
 import db.HSQLServer;
 import javafx.application.Application;
@@ -28,7 +29,7 @@ public class MiniNet  extends Application
 	/*
 	 * Program main method to run
 	 * */
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws Exception {
 		Thread thread = new Thread(){
 		    public void run(){
 				hsqlServer = new HSQLServer();
@@ -40,8 +41,10 @@ public class MiniNet  extends Application
 		DBUtil dbUtil = new DBUtil();
 		dbUtil.connect();
 		
-//		TODO: load file only first time
+		CreateTables.run(DBUtil.getConnection());
+			
 		TransferFileToDB.run();
+		
         Application.launch(args);
 	}
 
