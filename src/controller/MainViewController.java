@@ -26,13 +26,13 @@ public class MainViewController {
 		this.user = user;
 	}
 	
-	public void LogOutManager(SceneManager loginService)
+	public void LogOutManager(SceneManager sceneManager)
 	{
 		logOutBtn.setOnAction(new EventHandler<ActionEvent>()
 		{
 			@Override public void handle(ActionEvent event)
 			{	
-				loginService.logout();
+				sceneManager.logout();
 			}
 		});
 	}

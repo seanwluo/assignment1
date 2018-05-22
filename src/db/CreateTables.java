@@ -26,7 +26,7 @@ public class CreateTables {
 	{	
 		String createQuery = null;
 		buildTablesQuery();
-		_dbConnection.prepareStatement("truncate schema public restart identity and commit no check").execute();
+//		_dbConnection.prepareStatement("truncate schema public restart identity and commit no check").execute();
 
 		try {
 			for(String tableName: tableQuries.keySet())
@@ -35,8 +35,8 @@ public class CreateTables {
 //				_dbConnection.prepareStatement("drop table " + tableName + " if exists;").execute();
 				
 				// Build table create query
-//				createQuery = String.format("create table %s (%s);", tableName, tableQuries.get(tableName));
-//				_dbConnection.prepareStatement(createQuery).execute();
+				createQuery = String.format("create table %s (%s);", tableName, tableQuries.get(tableName));
+				_dbConnection.prepareStatement(createQuery).execute();
 			}
 			_dbConnection.commit();
 		} finally {
@@ -55,7 +55,7 @@ public class CreateTables {
 
 		tableQuries.put("profiles", 
 				"id integer identity, "
-				+ "user varchar(25) not null, "
+				+ "username varchar(25) not null, "
 				+ "firstname varchar(20) not null, "
 				+ "lastname varchar(20) not null, "
 				+ "age integer, "
@@ -63,17 +63,17 @@ public class CreateTables {
 				+ "status varchar(30), "
 				+ "picUrl varchar(100), "
 				+ "state varchar(6), "
-				+ "primary key (id, user), "
-				+ "foreign key(user) references users(username)");
+				+ "primary key (id), "
+				+ "foreign key(username) references users(username)");
 		
 		tableQuries.put("friendships",
 				"id integer identity, "
-				+ "user1 varchar(25) not null, "
-				+ "user2 varchar(25) not null, "
+				+ "username1 varchar(25) not null, "
+				+ "username2 varchar(25) not null, "
 				+ "type varchar(10), "
-				+ "primary key(id, user1, user2), "
-				+ "foreign key(user1) references users(username), "
-				+ "foreign key(user2) references users(username)");
+				+ "primary key(id), "
+				+ "foreign key(username1) references users(username), "
+				+ "foreign key(username2) references users(username)");
 	}
 	
 	public static void main(String[] args) throws SQLException
